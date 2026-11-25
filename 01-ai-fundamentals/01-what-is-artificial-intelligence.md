@@ -3,7 +3,7 @@
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 01  
-> **Status:** Content covered; knowledge check pending  
+> **Status:** Complete — knowledge check passed (6/6)  
 > **Audience:** Infrastructure / DevOps engineers moving into AI infrastructure
 
 ## Learning objectives
@@ -242,5 +242,5 @@ We will establish these concepts before moving into neural networks and LLM arch
 
 | Phase | Lesson | Status |
 |---|---|---|
-| 1 — AI Fundamentals | 01 — What Is Artificial Intelligence? | In progress — knowledge check pending |
-| 1 — AI Fundamentals | 02 — Traditional Machine Learning Fundamentals | Not started |
+| 1 — AI Fundamentals | 01 — What Is Artificial Intelligence? | Complete — 6/6 |
+| 1 — AI Fundamentals | 02 — Traditional Machine Learning Fundamentals | In progress |
