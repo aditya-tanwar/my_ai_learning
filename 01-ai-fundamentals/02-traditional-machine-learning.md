@@ -3,7 +3,7 @@
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 02  
-> **Status:** Taught; practical exercise and knowledge check pending  
+> **Status:** Complete — knowledge check and practical exercise reviewed  
 > **Prerequisite:** Lesson 01 — What Is Artificial Intelligence? (completed, 6/6)
 
 ## Learning objectives
@@ -285,7 +285,7 @@ Answer:
 
 ## 12. Knowledge check
 
-**Status: Pending — answer these before marking the lesson complete.**
+**Status: Completed — knowledge check and practical exercise reviewed.**
 
 1. What is a dataset?
    - A. A trained model
@@ -349,7 +349,7 @@ Answer:
 
 ## 14. Next lesson
 
-**Phase 1 — Lesson 03: Classification, Regression, and Model Evaluation**
+**Phase 1 — Lesson 03: Classification, Regression, and Model Evaluation (completed)**
 
 Planned topics:
 - Classification vs regression.
@@ -365,5 +365,5 @@ Planned topics:
 | Phase | Lesson | Status |
 |---|---|---|
 | 1 — AI Fundamentals | 01 — What Is Artificial Intelligence? | Complete — 6/6 |
-| 1 — AI Fundamentals | 02 — Traditional Machine Learning | In progress — exercise and knowledge check pending |
-| 1 — AI Fundamentals | 03 — Classification, Regression, and Model Evaluation | Not started |
+| 1 — AI Fundamentals | 02 — Traditional Machine Learning | Complete — knowledge check and exercise reviewed |
+| 1 — AI Fundamentals | 03 — Classification, Regression, and Model Evaluation | Complete — 7/8; exercise reviewed |
