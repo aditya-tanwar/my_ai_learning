@@ -1,5 +1,7 @@
 # Lesson 5 — Model Training Fundamentals
 
+> **Visual companion:** [Open the HTML lesson](./05-model-training-fundamentals.html)
+
 **Phase:** 1 — Artificial Intelligence Fundamentals  
 **Status:** Taught; knowledge check 7/8; practical exercise pending
 
