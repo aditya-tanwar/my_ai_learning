@@ -1,5 +1,7 @@
 # 02 — Traditional Machine Learning
 
+> **Visual companion:** [Open the HTML lesson](./02-traditional-machine-learning.html)
+
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 02  
