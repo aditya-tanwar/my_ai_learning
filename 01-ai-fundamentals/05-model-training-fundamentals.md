@@ -1,7 +1,5 @@
 # Lesson 5 — Model Training Fundamentals
 
-> **Visual companion:** [Open the HTML lesson](./05-model-training-fundamentals.html)
-
 **Phase:** 1 — Artificial Intelligence Fundamentals  
 **Status:** Taught; knowledge check 7/8; practical exercise pending
 
@@ -19,6 +17,20 @@ Imagine training a model to predict whether a Kubernetes pod is likely to fail. 
 During training, the model adjusts internal numerical values so its predictions become more accurate on the training objective. Those learned values are called **parameters**.
 
 ## 2. Parameters, weights, and biases
+
+
+### Diagram: a weighted neuron calculation
+
+```mermaid
+flowchart LR
+    X1[CPU x1] -->|weight w1| SUM[Weighted sum + bias]
+    X2[Memory x2] -->|weight w2| SUM
+    X3[Restarts x3] -->|weight w3| SUM
+    B[Bias b] --> SUM
+    SUM --> Z[z = w1x1 + w2x2 + w3x3 + b]
+    Z --> OUT[Score / activation]
+```
+
 
 A **parameter** is an internal value learned by a model during training. In a simple model, parameters include weights and a bias.
 
@@ -60,6 +72,24 @@ Binary cross-entropy is one commonly used loss function for binary classificatio
 
 ## 5. Optimization and gradient descent
 
+
+### Diagram: simplified training loop
+
+```mermaid
+flowchart TD
+    A[Training batch] --> B[Forward pass]
+    B --> C[Prediction]
+    C --> D[Calculate loss]
+    D --> E[Calculate gradients]
+    E --> F[Optimizer updates parameters]
+    F --> G{More batches / epochs?}
+    G -->|Yes| A
+    G -->|No| H[Save and evaluate model]
+```
+
+Gradient descent update for one parameter: **w_new = w_old - learning_rate × gradient**. The optimizer uses gradients to choose parameter updates; the learning rate controls update size.
+
+
 **Optimization** is the process of adjusting model parameters to reduce the loss.
 
 Gradient descent, at a high level:
@@ -80,6 +110,26 @@ If the learning rate is too high, updates may overshoot useful values and traini
 The **optimizer** performs parameter updates; gradient descent is one optimization approach.
 
 ## 6. Steps, batches, and epochs
+
+
+### Diagram: dataset processed in batches
+
+```mermaid
+flowchart TD
+    DATA[10,000 training records] --> EPOCH[One epoch: one complete pass]
+    EPOCH --> B1[Batch 1: records 1–100]
+    EPOCH --> B2[Batch 2: records 101–200]
+    EPOCH --> BN[... Batch 100]
+    B1 --> S1[Optimizer step 1]
+    B2 --> S2[Optimizer step 2]
+    BN --> SN[Optimizer step 100]
+    S1 --> NEXT[Next epoch repeats the dataset]
+    S2 --> NEXT
+    SN --> NEXT
+```
+
+With 10,000 records and batch size 100, there are 100 batches per epoch. With 20 epochs and one optimizer update per batch, that is approximately 2,000 optimizer steps.
+
 
 - **Batch:** a group of training examples processed together.
 - **Step / iteration:** typically one optimizer update.
