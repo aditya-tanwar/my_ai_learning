@@ -12,6 +12,7 @@ A fundamentals-first learning path for DevOps and infrastructure engineers movin
 | 04 | [Overfitting, Underfitting, Bias, and Variance](04-overfitting-underfitting-bias-variance.md) | Generalization, learning curves, regularization |
 | 05 | [Model Training Fundamentals](05-model-training-fundamentals.md) | Parameters, weights, biases, loss, optimization, batches |
 | 06 | [Neural Networks and the Perceptron](06-neural-networks-perceptron.md) | Neurons, layers, activation functions, forward pass |
+| 07 | [How Neural Networks Learn: Forward Propagation, Backpropagation and Gradients](07-forward-propagation-backpropagation-gradients.md) | Forward propagation, loss, gradients, backpropagation, optimizers, training loop |
 
 ## Learning sequence
 
@@ -22,7 +23,8 @@ flowchart TD
     L3 --> L4[04 Generalization and overfitting]
     L4 --> L5[05 Training fundamentals]
     L5 --> L6[06 Neural networks and perceptron]
-    L6 --> NEXT[Next: deeper neural-network training]
+    L6 --> L7[07 Forward propagation and backpropagation]
+    L7 --> NEXT[Next: deeper neural-network architectures]
 ```
 
 ## Progress
