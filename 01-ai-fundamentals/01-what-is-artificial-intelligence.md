@@ -292,9 +292,6 @@ Planned topics:
 
 We will establish these concepts before moving into neural networks and LLM architecture.
 
-## Progress Tracker
+## Progress tracker
 
-| Phase | Lesson | Status |
-|---|---|---|
-| 1 — AI Fundamentals | 01 — What Is Artificial Intelligence? | Complete — 6/6 |
-| 1 — AI Fundamentals | 02 — Traditional Machine Learning Fundamentals | In progress |
+See the central [course progress tracker](../PROGRESS.md) for the current status of every lesson.
