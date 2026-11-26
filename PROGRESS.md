@@ -11,7 +11,7 @@ This is the single source of truth for lesson status. A lesson is marked **Compl
 | 03 | [Classification, Regression, and Model Evaluation](01-ai-fundamentals/03-classification-regression-model-evaluation.md) | Complete — knowledge check 7/8; practical calculations reviewed |
 | 04 | [Overfitting, Underfitting, Bias, and Variance](01-ai-fundamentals/04-overfitting-underfitting-bias-variance.md) | Taught — knowledge check 6/8; practical exercise pending |
 | 05 | [Model Training Fundamentals](01-ai-fundamentals/05-model-training-fundamentals.md) | Taught — knowledge check 7/8; practical exercise pending |
-| 06 | [Neural Networks and the Perceptron](01-ai-fundamentals/06-neural-networks-perceptron.md) | Taught — knowledge check and practical exercise pending |
+| 06 | [Neural Networks and the Perceptron](01-ai-fundamentals/06-neural-networks-perceptron.md) | Complete — user confirmed lesson completion |
 
 ## Roadmap
 
