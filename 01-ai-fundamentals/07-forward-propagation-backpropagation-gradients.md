@@ -1,6 +1,6 @@
 # Lesson 7 — How Neural Networks Learn: Forward Propagation, Backpropagation and Gradients
 
-## Learning objectives
+## 1. Learning objectives
 
 By the end of this lesson, you should be able to:
 
@@ -11,7 +11,7 @@ By the end of this lesson, you should be able to:
 - Calculate a simple weight update using gradient descent.
 - Describe why training neural networks requires substantial compute and memory.
 
-## 1. The complete learning cycle
+## 2. First, see the complete learning cycle
 
 A neural network learns by repeatedly making predictions, measuring its errors, and adjusting its parameters.
 
@@ -26,14 +26,16 @@ flowchart TD
     G --> B
 ```
 
+There are two main directions:
+
 - **Forward:** information travels from the input layer towards the output layer.
 - **Backward:** error information travels backwards through the network so the parameters can be adjusted.
 
 This cycle repeats many times during training.
 
-## 2. Forward propagation — making a prediction
+## 3. Forward propagation — making a prediction
 
-Recall the neuron equations from Lesson 6:
+Remember the neuron equation from Lesson 6:
 
 [
 z = w_1x_1+w_2x_2+b
@@ -42,6 +44,8 @@ z = w_1x_1+w_2x_2+b
 [
 a=f(z)
 ]
+
+Where:
 
 | Symbol | Meaning |
 |---|---|
@@ -52,21 +56,68 @@ a=f(z)
 | (f) | Activation function |
 | (a) | Neuron output |
 
-A neural network connects many such neurons into layers. Each layer receives the previous layer's output, performs calculations, and passes its result forward.
+A neural network connects many such neurons into layers.
 
-Example: a model receives CPU and memory metrics, processes them through hidden layers, and produces a failure probability of 0.87.
+```text
+Input:
+CPU = 80%
+Memory = 92%
 
-The value 0.87 is the model's prediction. It is not automatically a guarantee that the pod will fail; it represents the model's estimated probability, assuming the output has been trained and calibrated appropriately.
+        ↓
+
+Hidden layer:
+Combines input features using weights and biases
+
+        ↓
+
+Output layer:
+Failure probability = 0.87
+```
+
+Imagine a network with:
+
+- An input layer receiving CPU and memory metrics.
+- A hidden layer learning combinations of those metrics.
+- An output layer predicting whether a Kubernetes pod is likely to fail.
+
+Each layer receives the previous layer's output, performs calculations, and passes its result forward.
+
+For example:
+
+```text
+Input:
+CPU = 80%
+Memory = 92%
+
+        ↓
+
+Hidden layer:
+Combines input features using weights and biases
+
+        ↓
+
+Output layer:
+Failure probability = 0.87
+```
+
+The value `0.87` is the model's prediction. It is not automatically a guarantee that the pod will fail; it represents the model's estimated probability, assuming the output has been trained and calibrated appropriately.
 
 **Key point:** During the forward pass, the network uses its current weights and biases. It does not update them yet.
 
-## 3. Loss — measuring how wrong the prediction is
+## 4. Loss — measuring how wrong the prediction is
 
-The network needs a way to measure how far its prediction is from the correct answer. That measurement is called the **loss**.
+The network needs a way to measure how far its prediction is from the correct answer.
 
-Suppose the actual target is (y=1) and the predicted probability is (hat y=0.87).
+That measurement is called the **loss**.
 
-For a simple numerical example, use Mean Squared Error (MSE):
+Suppose:
+
+- Actual target: (y=1) (pod failure)
+- Predicted probability: (hat y=0.87)
+
+The model is reasonably close to the target, but there is still some prediction error.
+
+For a simple numerical example, we'll use Mean Squared Error (MSE):
 
 [
 L=(hat y-y)^2
@@ -76,11 +127,22 @@ L=(hat y-y)^2
 L=(0.87-1)^2=0.0169
 ]
 
+`Lower loss generally means a better fit to the training target.`
+
 Different tasks use different loss functions. MSE is common for regression; binary cross-entropy is commonly used for binary classification.
 
-## 4. Gradients — figuring out how to improve
+## 5. Gradients — figuring out how to improve
+
+This is one of the most important concepts in deep learning.
 
 A **gradient** tells us how the loss changes when a parameter changes.
+
+Think of the loss as a landscape:
+
+- High points represent larger loss.
+- Low points represent smaller loss.
+- The gradient tells us the direction and rate of steepest increase.
+- To reduce loss, gradient descent moves in the opposite direction.
 
 For a parameter (w), its gradient is written as:
 
@@ -96,9 +158,9 @@ Read this as: "How much does the loss change when the weight changes?"
 
 The gradient is not the weight itself. It is information used to decide how to change the weight.
 
-The loss can be imagined as a landscape: high points represent larger loss, low points represent smaller loss, and gradient descent moves in the direction opposite the gradient to reduce loss.
+## 6. Backpropagation — sending error information backwards
 
-## 5. Backpropagation — sending error information backwards
+Now we reach the core of the lesson.
 
 **Backpropagation** calculates how much each parameter in the network contributed to the final loss.
 
@@ -112,7 +174,9 @@ flowchart BT
     D --> E["Gradients for weights and biases"]
 ```
 
-The final loss is calculated at the output. To determine how an earlier weight affected that loss, the network applies the chain rule through each operation between that weight and the output.
+Why does it work backwards?
+
+Because the final loss is calculated at the output. To determine how an earlier weight affected that loss, the network applies the chain rule through each operation between that weight and the output.
 
 A simplified chain-rule relationship is:
 
@@ -126,21 +190,26 @@ A simplified chain-rule relationship is:
 rac{partial z}{partial w}
 ]
 
-Each term tells us:
+Each term tells us how one stage affects the next:
 
 1. How the loss changes with the neuron's output.
 2. How the output changes with the weighted sum.
 3. How the weighted sum changes with the weight.
 
+The network calculates these derivatives layer by layer.
+
 **Important distinction:**
+
 - Backpropagation calculates gradients.
 - The optimizer uses those gradients to update parameters.
 
 They work together, but they are not the same operation.
 
-## 6. Numerical example — how a weight changes
+## 7. A numerical example — how a weight actually changes
 
-Use a single neuron with a linear output and no activation function.
+Let's make backpropagation concrete using a single neuron. We'll use a linear output for this example, without an activation function.
+
+Suppose:
 
 | Parameter | Value |
 |---|---:|
@@ -150,7 +219,9 @@ Use a single neuron with a linear output and no activation function.
 | Actual target (y) | 5 |
 | Learning rate (eta) | 0.1 |
 
-### Step 1 — Forward pass
+**Step 1 — Forward pass**
+
+Calculate the prediction:
 
 [
 hat y=wx+b
@@ -160,11 +231,11 @@ hat y=wx+b
 hat y=(1	imes2)+0=2
 ]
 
-The model predicted 2, but the correct answer is 5.
+The model predicted `2`, but the correct answer is `5`.
 
-### Step 2 — Calculate the loss
+**Step 2 — Calculate the loss**
 
-Use half the squared error:
+For easier differentiation, we'll use half the squared error:
 
 [
 L=rac{1}{2}(hat y-y)^2
@@ -174,7 +245,7 @@ L=rac{1}{2}(hat y-y)^2
 L=rac{1}{2}(2-5)^2=4.5
 ]
 
-### Step 3 — Calculate the gradients
+**Step 3 — Calculate the gradients**
 
 For this simple neuron:
 
@@ -186,15 +257,18 @@ For this simple neuron:
 rac{partial L}{partial w}=(2-5)	imes2=-6
 ]
 
-For the bias:
+And for the bias:
 
 [
 rac{partial L}{partial b}=(hat y-y)=-3
 ]
 
-Weight gradient = -6. Bias gradient = -3.
+So our gradients are:
 
-### Step 4 — Update the parameters
+- Weight gradient = `-6`
+- Bias gradient = `-3`
+
+**Step 4 — Update the parameters**
 
 Gradient descent uses:
 
@@ -216,15 +290,18 @@ w_{	ext{new}}=1-(0.1	imes-6)=1.6
 b_{	ext{new}}=0-(0.1	imes-3)=0.3
 ]
 
-New weight = 1.6. New bias = 0.3.
+`Updated parameters`
 
-### Step 5 — Make another prediction
+- New weight = `1.6`
+- New bias = `0.3`
+
+**Step 5 — Make another prediction**
 
 [
 hat y=(1.6	imes2)+0.3=3.5
 ]
 
-The prediction moved from 2 to 3.5, closer to the actual target of 5.
+The prediction moved from `2` to `3.5`, closer to the actual target of `5`.
 
 The new loss is:
 
@@ -232,27 +309,33 @@ The new loss is:
 L=rac{1}{2}(3.5-5)^2=1.125
 ]
 
-Loss decreased from 4.5 to 1.125.
+`Loss decreased from 4.5 to 1.125.`
 
-That's the basic learning mechanism: calculate, measure, compute gradients, update parameters, repeat. Real networks have many parameters and multiple layers, but the underlying idea is the same.
+That's the basic learning mechanism: calculate, measure, compute gradients, update parameters, repeat.
 
-## 7. The optimizer — who applies the update?
+Real networks have many parameters and multiple layers, but the underlying idea is the same.
+
+## 8. The optimizer — who applies the update?
 
 Backpropagation calculates gradients. The **optimizer** decides how to use them to update weights and biases.
 
-The simplest optimizer is **Stochastic Gradient Descent (SGD)**:
+The simplest optimizer is **Stochastic Gradient Descent (SGD)**.
+
+Its update rule is:
 
 [
 w_{	ext{new}}=w_{	ext{old}}-eta
 abla_w L
 ]
 
+Here:
+
 - (w) is the parameter being updated.
 - (eta) is the learning rate.
 - (
 abla_w L) is the gradient of the loss with respect to that parameter.
 
-Other commonly used optimizers:
+Other commonly used optimizers include:
 
 | Optimizer | Basic idea |
 |---|---|
@@ -261,9 +344,13 @@ Other commonly used optimizers:
 | Adam | Adapts updates using moving averages of gradients and squared gradients |
 | AdamW | Adam-style optimization with decoupled weight decay |
 
-The learning rate controls the size of each update. A learning rate that is too high can make training unstable or cause it to overshoot. One that is too low can make learning very slow.
+We'll study optimizer behaviour in more depth later. For now, remember: **the learning rate controls the size of each update.**
 
-## 8. The complete training loop
+A learning rate that is too high can make training unstable or cause it to overshoot. One that is too low can make learning very slow.
+
+## 9. The complete training loop
+
+Now connect everything to the training terminology we've already learned.
 
 ```mermaid
 flowchart TD
@@ -279,25 +366,29 @@ flowchart TD
     H -->|No| I["Training finished"]
 ```
 
+Let's connect the terms:
+
 - **Batch:** a group of training examples processed together.
 - **Step / iteration:** typically one optimizer update after processing a batch.
 - **Epoch:** one complete pass through the training dataset.
 - **Learning rate:** controls how large a parameter update is.
 - **Training:** repeatedly running the process to improve model parameters.
 
-Example: with 10,000 training records and batch size 100:
+For example, if you have 10,000 training records and a batch size of 100:
 
 [
 	ext{Batches per epoch}=rac{10,000}{100}=100
 ]
 
-For 20 epochs, assuming every batch produces one optimizer update:
+If you train for 20 epochs, assuming every batch produces one optimizer update:
 
 [
 	ext{Total updates}=100	imes20=2,000
 ]
 
-## 9. Infrastructure impact — why this matters to DevOps
+## 10. Infrastructure impact — why this matters to DevOps
+
+This is where neural-network theory becomes infrastructure engineering.
 
 Training a neural network involves large numbers of mathematical operations, especially matrix multiplications.
 
@@ -310,18 +401,24 @@ Training a neural network involves large numbers of mathematical operations, esp
 | Storage | Holds datasets, checkpoints, logs and model artifacts |
 | Network | Moves data between workers in distributed training |
 
-### Training versus inference
+A particularly important distinction:
+
+**Inference versus training**
 
 - During inference, a model generally performs a forward pass to generate a prediction.
 - During training, it performs a forward pass, calculates loss, performs backpropagation and updates parameters.
 
 Training therefore needs additional memory for gradients, intermediate activations and often optimizer state.
 
-Deploying a model for inference is not the same infrastructure problem as training or fine-tuning it.
+For your future AI infrastructure work, this is why deploying a model for inference is not the same infrastructure problem as training or fine-tuning it.
 
-## 10. Practical exercise
+## 11. Practical exercise
 
-Imagine you're training a model to predict whether a Kubernetes pod will experience a failure. The model uses CPU utilization as its input.
+Let's check whether you can apply the learning cycle yourself.
+
+Imagine you're training a model to predict whether a Kubernetes pod will experience a failure.
+
+The model uses CPU utilization as its input.
 
 Given:
 
@@ -345,7 +442,7 @@ And this loss function:
 L=rac{1}{2}(hat y-y)^2
 ]
 
-Tasks:
+**Your tasks:**
 
 1. Calculate the initial prediction.
 2. Calculate the loss.
@@ -355,22 +452,31 @@ Tasks:
 6. Calculate the new prediction.
 7. Calculate the new loss. Did it decrease?
 
-Try doing the calculations yourself. The goal is to understand why the weight changes, not just memorise the formulas.
+Try doing the calculations yourself before checking anything. The goal is to understand why the weight changes, not just memorise the formulas.
 
-## 11. Knowledge check
+## 12. Knowledge check
 
-Answer these in your own words:
+Answer these in your own words. I'll review your answers and explain anything that needs correction.
 
-1. What is forward propagation, and in which direction does information travel?
-2. What is the purpose of a loss function?
-3. What does a gradient tell us about a model parameter?
-4. What is backpropagation, and why does it work backwards?
-5. What is the difference between backpropagation and an optimizer?
-6. What happens if the learning rate is extremely high?
-7. Why does training generally require more GPU memory than inference?
-8. If a dataset contains 50,000 records and the batch size is 500, how many optimizer updates happen in one epoch, assuming one update per batch?
+**Q1.** What is forward propagation, and in which direction does information travel?
 
-## 12. Interview questions
+**Q2.** What is the purpose of a loss function?
+
+**Q3.** What does a gradient tell us about a model parameter?
+
+**Q4.** What is backpropagation, and why does it work backwards?
+
+**Q5.** What is the difference between backpropagation and an optimizer?
+
+**Q6.** What happens if the learning rate is extremely high?
+
+**Q7.** Why does training generally require more GPU memory than inference?
+
+**Q8.** If a dataset contains 50,000 records and the batch size is 500, how many optimizer updates happen in one epoch, assuming one update per batch?
+
+## 13. Interview questions
+
+Use these to test whether you can explain the concepts without relying on equations.
 
 1. Explain forward propagation and backpropagation in a neural network.
 2. What is a gradient, and how is it used during training?
@@ -380,7 +486,7 @@ Answer these in your own words:
 6. Why does training need to store activations and gradients?
 7. Why are GPUs useful for training neural networks?
 
-## Lesson 7 completion criteria
+## 14. Lesson 7 completion criteria
 
 - [ ] Understand forward propagation.
 - [ ] Understand loss and gradients.
@@ -389,4 +495,4 @@ Answer these in your own words:
 - [ ] Pass the knowledge check.
 - [ ] Explain the infrastructure implications.
 
-**Next lesson:** Build on this foundation by exploring deeper neural-network architectures and how multiple layers learn increasingly complex patterns.
+**Next lesson:** We'll build on this foundation by exploring deeper neural-network architectures and how multiple layers learn increasingly complex patterns.
