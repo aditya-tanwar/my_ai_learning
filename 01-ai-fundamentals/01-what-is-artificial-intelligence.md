@@ -1,7 +1,5 @@
 # 01 — What Is Artificial Intelligence?
 
-> **Visual companion:** [Open the HTML lesson](./01-what-is-artificial-intelligence.html)
-
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 01  
@@ -28,6 +26,27 @@ The model is the predictive component. The data pipeline, compute, model deploym
 
 ## 2. AI, ML, Deep Learning, Generative AI, and LLMs
 
+
+### Diagram: the AI landscape
+
+```mermaid
+flowchart TD
+    AI[Artificial Intelligence]
+    ML[Machine Learning]
+    DL[Deep Learning]
+    GEN[Generative AI]
+    LLM[Large Language Models]
+    AI --> ML
+    ML --> DL
+    DL --> GEN
+    GEN --> LLM
+    AI -. also includes .-> OTHER[Rule-based systems, search, planning]
+    GEN -. includes more than text .-> MEDIA[Image, audio and video generation]
+```
+
+This is a simplified learning map, not a strict taxonomy: Generative AI includes non-language models, and AI also includes methods outside ML.
+
+
 | Term | Meaning | Example |
 |---|---|---|
 | Artificial Intelligence (AI) | Broad field of systems that perform tasks associated with intelligence | Planning, perception, prediction |
@@ -45,6 +64,21 @@ A useful simplified relationship:
 **Nuance:** This is a learning-oriented simplification, not a strict universal taxonomy. Generative AI is not limited to LLMs or text. Image, audio, and video generation are other examples. AI also includes techniques that are not machine learning.
 
 ## 3. Traditional Programming vs Machine Learning
+
+
+### Diagram: explicit rules versus learned patterns
+
+```mermaid
+flowchart LR
+    subgraph Traditional[Traditional programming]
+      I1[Input] --> R[Human-written rules] --> O1[Output]
+    end
+    subgraph ML[Machine learning]
+      D[Examples and labels] --> T[Training algorithm] --> M[Trained model]
+      I2[New input] --> M --> O2[Prediction]
+    end
+```
+
 
 ### Traditional programming
 
@@ -116,6 +150,24 @@ Core terms:
 - **Policy:** the strategy used to choose actions.
 
 ## 5. Where AI Infrastructure Fits
+
+
+### Diagram: production AI lifecycle
+
+```mermaid
+flowchart TD
+    A[Data sources] --> B[Ingestion and preparation]
+    B --> C[Training or fine-tuning]
+    C --> D[Model artifact / checkpoint]
+    D --> E[Deployment and inference]
+    E --> F[Application or API]
+    F --> G[Monitoring and evaluation]
+    G --> B
+    G --> C
+```
+
+Monitoring can trigger data-quality investigation, evaluation, retraining, or rollback. Inference is the act of using a trained model to produce outputs; detailed inference engineering is covered later in the dedicated inference phase.
+
 
 A useful high-level lifecycle:
 
@@ -198,7 +250,7 @@ These are useful analogies, not exact equivalences. A model artifact has additio
 
 4. Reinforcement learning learns primarily through:
    - A. Static labels only
-   - - B. Rewards and penalties from interaction
+   - B. Rewards and penalties from interaction
    - C. SQL queries
    - D. Container logs alone
 
