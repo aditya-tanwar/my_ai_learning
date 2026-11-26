@@ -252,7 +252,7 @@ Inference is introduced in Phase 1 as the act of using a trained model to produc
 
 ## 12. Next lesson
 
-**Phase 1 — Lesson 04: Overfitting, Underfitting, Bias, and Variance**
+**Phase 1 — Lesson 04: Overfitting, Underfitting, Bias, and Variance (taught; assessment 6/8, exercise pending)**
 
 Planned topics:
 
@@ -270,4 +270,4 @@ Planned topics:
 | 1 — AI Fundamentals | 01 — What Is Artificial Intelligence? | Complete — 6/6 |
 | 1 — AI Fundamentals | 02 — Traditional Machine Learning | Complete — knowledge check and exercise reviewed |
 | 1 — AI Fundamentals | 03 — Classification, Regression, and Model Evaluation | Complete — 7/8; exercise reviewed |
-| 1 — AI Fundamentals | 04 — Overfitting, Underfitting, Bias, and Variance | In progress |
+| 1 — AI Fundamentals | 04 — Overfitting, Underfitting, Bias, and Variance | Taught — 6/8; practical exercise pending |
