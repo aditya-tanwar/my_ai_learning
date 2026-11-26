@@ -1,5 +1,7 @@
 # 01 — What Is Artificial Intelligence?
 
+> **Visual companion:** [Open the HTML lesson](./01-what-is-artificial-intelligence.html)
+
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 01  
