@@ -1,7 +1,5 @@
 # 03 — Classification, Regression, and Model Evaluation
 
-> **Visual companion:** [Open the HTML lesson](./03-classification-regression-model-evaluation.html)
-
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 03  
@@ -22,6 +20,19 @@ By the end of this lesson, you should be able to:
 - Choose evaluation metrics for infrastructure failure prediction.
 
 ## 1. Classification
+
+
+### Diagram: classification produces a category
+
+```mermaid
+flowchart LR
+    X[Input features] --> M[Classifier]
+    M --> P[Class scores / probabilities]
+    P --> T{Decision threshold}
+    T -->|above threshold| YES[Predict failure]
+    T -->|below threshold| NO[Predict no failure]
+```
+
 
 Classification predicts a category or class.
 
@@ -75,6 +86,21 @@ Other infrastructure examples:
 **Important:** Despite its name, logistic regression is commonly used for classification.
 
 ## 3. Confusion matrix
+
+
+### Diagram: how predictions compare with reality
+
+```mermaid
+flowchart TD
+    P[Model prediction] --> COMPARE[Compare with actual label]
+    COMPARE -->|Predicted yes, actual yes| TP[True Positive]
+    COMPARE -->|Predicted yes, actual no| FP[False Positive]
+    COMPARE -->|Predicted no, actual yes| FN[False Negative]
+    COMPARE -->|Predicted no, actual no| TN[True Negative]
+```
+
+Keep the four outcomes straight: false positives are false alarms; false negatives are missed failures. The confusion-matrix table below defines the actual/predicted axes.
+
 
 A confusion matrix compares predicted classes with actual outcomes.
 
@@ -169,6 +195,23 @@ This is a class-imbalance problem: healthy pods greatly outnumber failed pods.
 Therefore, accuracy alone is insufficient for evaluating a failure-detection model.
 
 ## 6. Choosing a metric
+
+
+### Diagram: choose metrics based on the operational cost of mistakes
+
+```mermaid
+flowchart TD
+    START[What is costly in this use case?] --> MISS[Missing a real failure is costly]
+    START --> ALARM[Too many false alarms are costly]
+    START --> BAL[Both error types matter]
+    MISS --> REC[Prioritize recall; inspect false negatives]
+    ALARM --> PREC[Prioritize precision; inspect false positives]
+    BAL --> F1[Consider F1 and operational trade-offs]
+    REC --> THRESH[Validate threshold on representative data]
+    PREC --> THRESH
+    F1 --> THRESH
+```
+
 
 | Operational goal | Metric to consider |
 |---|---|
