@@ -1,7 +1,5 @@
 # 04 — Overfitting, Underfitting, Bias, and Variance
 
-> **Visual companion:** [Open the HTML lesson](./04-overfitting-underfitting-bias-variance.html)
-
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 04  
@@ -62,6 +60,21 @@ Possible causes include:
 
 ## 4. Compare underfitting, good fit, and overfitting
 
+
+### Diagram: training versus validation behavior
+
+```mermaid
+flowchart TD
+    A[Compare training and validation performance] --> B{Both perform poorly?}
+    B -->|Yes| U[Likely underfitting<br/>Model has not captured enough pattern]
+    B -->|No| C{Training strong, validation much worse?}
+    C -->|Yes| O[Likely overfitting<br/>Model memorizes training-specific patterns]
+    C -->|No| G[Generalizes reasonably well<br/>Train and validation both strong and close]
+```
+
+The diagram is a diagnostic guide, not an automatic proof. Also inspect data quality, split strategy, sample size, and metric uncertainty.
+
+
 | Situation | Training performance | Validation performance |
 |---|---|---|
 | Underfitting | Poor | Poor |
@@ -91,6 +104,21 @@ A simple memory aid:
 - High variance: the model has captured too much of the quirks in its training examples.
 
 ## 6. Detecting overfitting with training and validation loss
+
+
+### Diagram: typical loss patterns
+
+```mermaid
+flowchart LR
+    START[Training begins] --> EARLY[Training and validation loss decrease]
+    EARLY --> BEST[Validation loss reaches its minimum]
+    BEST --> LATE[Training loss keeps decreasing]
+    LATE --> GAP[Validation loss starts increasing]
+    GAP --> OVER[Generalization gap grows: overfitting signal]
+```
+
+A common response is early stopping near the best validation result. Actual curves are noisy and should be interpreted alongside the metric and validation design.
+
 
 Loss is a numerical measure of prediction error for a chosen objective. Lower loss is generally better when comparing the same loss function on comparable datasets.
 
