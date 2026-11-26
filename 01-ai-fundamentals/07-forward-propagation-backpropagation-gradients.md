@@ -58,6 +58,8 @@ Where:
 
 A neural network connects many such neurons into layers.
 
+![Neural network architecture: input layer, hidden layers and output layer](images/lesson-7-neural-network-architecture.svg)
+
 Imagine a network with:
 
 - An input layer receiving CPU and memory metrics.
@@ -127,6 +129,8 @@ Think of the loss as a landscape:
 - Low points represent smaller loss.
 - The gradient tells us the direction and rate of steepest increase.
 - To reduce loss, gradient descent moves in the opposite direction.
+
+![Gradient descent curve showing parameter updates moving toward a minimum](images/lesson-7-gradient-descent.svg)
 
 For a parameter (w), its gradient is written as:
 
