@@ -1,7 +1,5 @@
 # 02 — Traditional Machine Learning
 
-> **Visual companion:** [Open the HTML lesson](./02-traditional-machine-learning.html)
-
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 02  
@@ -66,6 +64,23 @@ A dataset can come from spreadsheets, databases, CSV, JSON, logs, telemetry plat
 
 ## 3. Features vs labels
 
+
+### Diagram: features X and label y
+
+```mermaid
+flowchart LR
+    subgraph Inputs[Features X]
+      CPU[CPU usage]
+      MEM[Memory usage]
+      RESTART[Restart count]
+      ERR[Error rate]
+    end
+    Inputs --> MODEL[ML model]
+    MODEL --> PRED[Predicted label / outcome]
+    LABEL[Known label y: pod failed?] -. used during supervised training .-> MODEL
+```
+
+
 ### Features — inputs
 
 Features are the information provided to a model to help it make a prediction.
@@ -104,6 +119,25 @@ During supervised learning, the model uses many examples of X paired with y to l
 Features must be available at prediction time. If information that only becomes available after a pod fails is included, the model may receive an unfair advantage. This is one form of data leakage.
 
 ## 4. Training, validation, and test datasets
+
+
+### Diagram: dataset split and intended use
+
+```mermaid
+flowchart TD
+    DATA[Full labelled dataset] --> SPLIT[Split without leakage]
+    SPLIT --> TRAIN[Training set<br/>Fit model parameters]
+    SPLIT --> VAL[Validation set<br/>Compare models and tune settings]
+    SPLIT --> TEST[Test set<br/>Final held-out evaluation]
+    TRAIN --> MODEL[Candidate model]
+    VAL --> SELECT[Select model / hyperparameters]
+    MODEL --> SELECT
+    SELECT --> FINAL[Chosen model]
+    FINAL --> TEST
+```
+
+The test set should remain untouched during model and hyperparameter selection. For time-dependent telemetry, use time-aware splits rather than randomly mixing future and past observations.
+
 
 A model should not be evaluated only on the data it learned from. We separate the available labelled data into portions.
 
@@ -155,6 +189,24 @@ Validation can influence model selection, so it is not a completely untouched fi
 
 ## 5. The traditional ML workflow
 
+
+### Diagram: end-to-end ML workflow
+
+```mermaid
+flowchart TD
+    A[Collect telemetry and outcomes] --> B[Clean and prepare data]
+    B --> C[Define features and label]
+    C --> D[Split train / validation / test]
+    D --> E[Train algorithm]
+    E --> F[Validate and tune]
+    F --> G[Final test evaluation]
+    G --> H[Package and deploy]
+    H --> I[Inference service]
+    I --> J[Monitor quality and operations]
+    J --> B
+```
+
+
 1. **Data collection:** Gather historical Kubernetes metrics, logs, and pod outcomes.
 2. **Data preparation:** Clean missing values, fix inconsistent formats, remove duplicates, and prepare the data.
 3. **Feature and label selection:** Select useful inputs and define the target outcome.
@@ -199,6 +251,23 @@ Example: the expected label is failure (1), but the model estimates a failure pr
 The details vary by algorithm. Later, when studying neural networks, we will examine weights, loss functions, gradients, and optimization in more detail.
 
 ## 7. Training vs inference
+
+
+### Diagram: training and inference are different workloads
+
+```mermaid
+flowchart LR
+    subgraph Train[Training — offline / periodic]
+      DATA[Historical examples] --> FIT[Training process]
+      FIT --> ART[Versioned model artifact]
+    end
+    subgraph Serve[Inference — online or batch]
+      REQ[New request / telemetry] --> MODEL[Loaded trained model]
+      ART -. deployed artifact .-> MODEL
+      MODEL --> OUT[Prediction]
+    end
+```
+
 
 | Training | Inference |
 |---|---|
