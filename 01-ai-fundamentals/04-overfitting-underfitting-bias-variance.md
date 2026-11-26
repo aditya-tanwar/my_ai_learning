@@ -1,5 +1,7 @@
 # 04 — Overfitting, Underfitting, Bias, and Variance
 
+> **Visual companion:** [Open the HTML lesson](./04-overfitting-underfitting-bias-variance.html)
+
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 04  
