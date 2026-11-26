@@ -1,5 +1,7 @@
 # 03 — Classification, Regression, and Model Evaluation
 
+> **Visual companion:** [Open the HTML lesson](./03-classification-regression-model-evaluation.html)
+
 > **Learning path:** AI Infrastructure / MLOps  
 > **Phase:** 1 — Artificial Intelligence Fundamentals  
 > **Lesson:** 03  
