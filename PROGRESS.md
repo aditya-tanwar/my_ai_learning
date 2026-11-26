@@ -13,6 +13,12 @@ This is the single source of truth for lesson status. A lesson is marked **Compl
 | 05 | [Model Training Fundamentals](01-ai-fundamentals/05-model-training-fundamentals.md) | Taught — knowledge check 7/8; practical exercise pending |
 | 06 | [Neural Networks and the Perceptron](01-ai-fundamentals/06-neural-networks-perceptron.md) | Complete — user confirmed lesson completion |
 
+## Current lesson — Deep Learning
+
+| Lesson | Topic | Status |
+|---|---|---|
+| 07 | [How Neural Networks Learn: Forward Propagation, Backpropagation and Gradients](01-ai-fundamentals/07-forward-propagation-backpropagation-gradients.md) | Taught — practical exercise and knowledge check pending |
+
 ## Roadmap
 
 1. Artificial Intelligence Fundamentals
