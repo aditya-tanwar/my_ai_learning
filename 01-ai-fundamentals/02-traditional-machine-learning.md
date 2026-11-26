@@ -433,8 +433,4 @@ Planned topics:
 
 ## Progress tracker
 
-| Phase | Lesson | Status |
-|---|---|---|
-| 1 — AI Fundamentals | 01 — What Is Artificial Intelligence? | Complete — 6/6 |
-| 1 — AI Fundamentals | 02 — Traditional Machine Learning | Complete — knowledge check and exercise reviewed |
-| 1 — AI Fundamentals | 03 — Classification, Regression, and Model Evaluation | Complete — 7/8; exercise reviewed |
+See the central [course progress tracker](../PROGRESS.md) for the current status of every lesson.
