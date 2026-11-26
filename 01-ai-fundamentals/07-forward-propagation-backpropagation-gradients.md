@@ -58,22 +58,6 @@ Where:
 
 A neural network connects many such neurons into layers.
 
-```text
-Input:
-CPU = 80%
-Memory = 92%
-
-        ↓
-
-Hidden layer:
-Combines input features using weights and biases
-
-        ↓
-
-Output layer:
-Failure probability = 0.87
-```
-
 Imagine a network with:
 
 - An input layer receiving CPU and memory metrics.
