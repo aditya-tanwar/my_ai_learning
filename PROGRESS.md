@@ -97,14 +97,16 @@ Every lesson should include:
 |---|---|---|---|
 | 01 | AI Workload Patterns on Kubernetes | Online inference services vs batch training/inference jobs; Deployments, Jobs, Stateful workloads and workload lifecycle | [ ] Planned |
 | 02 | AI Cluster and GPU Node Architecture | CPU/GPU node pools, instance families, quotas, capacity, drivers, node preparation and failure domains | [ ] Planned |
-| 03 | NVIDIA Kubernetes Stack | Device plugin, NVIDIA GPU Operator, container runtime integration, drivers and GPU resource discovery | [ ] Planned |
-| 04 | GPU Scheduling and Placement | GPU resource requests, node selectors, affinity, taints/tolerations, topology awareness and scheduling failures | [ ] Planned |
+| 03 | NVIDIA Kubernetes Stack and GPU Sharing | Device plugin, NVIDIA GPU Operator, drivers, GPU discovery, DCGM metrics, Multi-Instance GPU (MIG), time-slicing and the isolation/performance trade-offs | [ ] Planned |
+| 04 | GPU Scheduling and Placement | GPU resource requests, node selectors, affinity, taints/tolerations, topology awareness, NUMA/GPU topology concepts and scheduling failures | [ ] Planned |
 | 05 | Model and Dataset Storage | PVCs, CSI, object storage, model download/cache patterns, local NVMe considerations and storage throughput | [ ] Planned |
 | 06 | Networking and Service Exposure | Services, ingress/Gateway API, load balancing, DNS, TLS, NetworkPolicies and inference traffic paths | [ ] Planned |
 | 07 | Scaling AI Workloads | HPA, KEDA, custom metrics, queue depth, concurrency, scale-to-zero trade-offs and GPU scaling limitations | [ ] Planned |
 | 08 | Reliability and Rollouts | Probes, startup/warm-up, graceful termination, PDBs, rolling updates, model loading failures and rollback | [ ] Planned |
 | 09 | Infrastructure as Code for AI | Terraform for GPU nodes, IAM, networking, storage, secrets integration, quotas and environment provisioning | [ ] Planned |
-| 10 | Kubernetes AI Deployment Project | Deploy an inference service with manual YAML first, then Helm; add storage, scheduling, security and monitoring basics | [ ] Planned |
+| 10 | Distributed Training Workload Operations | Data-parallel training concepts, worker groups, gang scheduling, NCCL communication basics, checkpoints, restart/recovery and the operational difference between training and inference jobs | [ ] Planned |
+| 11 | AI Workload Queues and Fair Sharing | Kueue concepts, queues, quotas, priority, admission, preemption, resource flavors, fair sharing and topology-aware scheduling; when a queueing layer is justified | [ ] Planned |
+| 12 | Kubernetes AI Deployment Project | Deploy an inference service with manual YAML first, then Helm; add storage, scheduling, security and monitoring basics; operate a queued GPU job | [ ] Planned |
 
 **Practical outcome:** Deploy an inference workload to Kubernetes, expose it, persist or retrieve model artifacts, and operate it reliably. Then deploy a GPU-enabled workload on a compatible cluster.
 
@@ -124,8 +126,9 @@ Every lesson should include:
 | 06 | Workflow Orchestration | Pipeline DAGs, dependencies, retries, caching, parameters and artifact handoff; Kubeflow Pipelines or Argo Workflows where appropriate | [ ] Planned |
 | 07 | CI/CD for Models | Jenkins integration, data validation, tests, training triggers, evaluation gates, artifact publishing and immutable references | [ ] Planned |
 | 08 | GitOps and Model Deployment | ArgoCD, environment promotion, deployment manifests, model version pinning, canary/rollback and release governance | [ ] Planned |
-| 09 | LLM Evaluation and Release Gates | Evaluation datasets, prompt/model regression, quality checks, safety checks, offline evaluation and controlled promotion | [ ] Planned |
-| 10 | MLOps End-to-End Project | Build a pipeline from source/data validation through training, MLflow tracking, registry, approval and Kubernetes deployment | [ ] Planned |
+| 09 | LLM Evaluation and Release Gates | Versioned evaluation datasets, prompt/model regression, task-specific quality metrics, RAG retrieval/answer evaluation, agent/tool-call evaluation, safety checks, human review and controlled promotion | [ ] Planned |
+| 10 | Prompt, Configuration and Application Lifecycle | Prompt templates and versioning, model/provider configuration, secrets separation, application release management, regression testing and rollback | [ ] Planned |
+| 11 | MLOps and LLMOps End-to-End Project | Build a pipeline from source/data validation through training, MLflow tracking, registry, prompt/evaluation gates, approval and Kubernetes deployment | [ ] Planned |
 
 **Practical outcome:** Build an automated ML delivery pipeline using Docker, Jenkins, MLflow, object storage, Kubernetes and ArgoCD. Understand how the same lifecycle principles extend to LLM applications.
 
@@ -147,7 +150,9 @@ Every lesson should include:
 | 08 | Precision and Quantization | FP32, FP16, BF16, INT8, INT4, quantization trade-offs, model formats and quality/performance implications | [ ] Planned |
 | 09 | Multi-GPU Inference | Tensor parallelism, pipeline parallelism concepts, NCCL, GPU topology, communication overhead and placement | [ ] Planned |
 | 10 | Benchmarking and Optimization | Workload design, load testing, profiling, bottleneck analysis, throughput tuning, capacity estimation and cost per token | [ ] Planned |
-| 11 | Serving Engine Trade-offs | vLLM, llama.cpp and NVIDIA Triton; when each is appropriate and what operational differences matter | [ ] Planned |
+| 11 | Serving Engine Trade-offs | vLLM, SGLang, llama.cpp and NVIDIA Triton; engine architecture, supported workload patterns and operational trade-offs without trying to master every engine | [ ] Planned |
+| 12 | Distributed Inference and Serving Orchestration | Disaggregated prefill/decode, KV-cache transfer and reuse, cache-aware routing, multi-node serving, frontends/workers and when frameworks such as NVIDIA Dynamo are justified | [ ] Planned |
+| 13 | Inference Gateways and Model Routing | Gateway API Inference Extension concepts, model-aware routing, endpoint selection, traffic splitting, priorities, authentication, rate limits, quotas, retries, fallback and safe model rollout | [ ] Planned |
 
 **Practical outcome:** Deploy an open LLM with vLLM, expose its API, generate concurrent traffic, measure TTFT/latency/throughput, inspect GPU memory and tune serving configuration.
 
@@ -159,16 +164,17 @@ Every lesson should include:
 
 | Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | AI Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, inference metrics, GPU metrics and correlation IDs | [ ] Planned |
+| 01 | AI and LLM Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, GPU and inference metrics, TTFT/TPOT, token usage, cost, prompt/response and tool-call traces, sampling, redaction and correlation IDs | [ ] Planned |
 | 02 | SLOs, Reliability and Resilience | Availability, latency/error SLOs, capacity, high availability, failure recovery, disaster recovery and incident response | [ ] Planned |
 | 03 | Autoscaling and Capacity Engineering | GPU utilization, queue-aware scaling, replica sizing, warm pools, capacity reservations and load forecasting | [ ] Planned |
-| 04 | AI Platform Security | IAM/RBAC, workload identity, secrets, KMS, network isolation, image/artifact provenance, model supply chain and access audit | [ ] Planned |
-| 05 | LLM Application Security | Prompt injection, sensitive-data leakage, unsafe tool execution, guardrail boundaries, input/output validation and sandboxing concepts | [ ] Planned |
+| 04 | AI Platform and Model Supply-Chain Security | IAM/RBAC, workload identity, secrets, KMS, network isolation, least privilege, model/dataset provenance, artifact integrity, dependency and image scanning, SBOM/signing concepts and access audit | [ ] Planned |
+| 05 | LLM and Agentic Application Security | Prompt injection, sensitive-data leakage, excessive agency, tool misuse, identity/privilege abuse, memory/context poisoning, vector/embedding weaknesses, unbounded consumption, output validation and sandboxing | [ ] Planned |
 | 06 | Multi-Tenancy and Platform Governance | Tenant isolation, quotas, rate limits, resource fairness, namespaces, policy controls and usage attribution | [ ] Planned |
 | 07 | AI FinOps | GPU cost drivers, utilization, idle capacity, right-sizing, spot/on-demand trade-offs, cost per request/token and chargeback | [ ] Planned |
-| 08 | RAG Infrastructure and Operations | Ingestion pipeline, embeddings, vector database/index, retrieval flow, persistence, backups, access control and retrieval observability | [ ] Planned |
-| 09 | Agent and Tool-Using Workload Operations | Tool execution boundaries, worker queues, state, timeouts, retries, sandboxing, tracing and resource controls | [ ] Planned |
-| 10 | Production AI Platform Capstone | Design and implement a secure, observable, scalable AI platform with model serving, MLOps workflow, GitOps, SLOs and FinOps | [ ] Planned |
+| 08 | RAG Infrastructure and Operations | Document ingestion/parsing, chunking, embedding pipelines, vector database/index lifecycle, hybrid search, metadata/tenant filters, reranking, retrieval evaluation, freshness/re-indexing, deletion, backups, disaster recovery and retrieval observability | [ ] Planned |
+| 09 | Agent and Tool-Using Workload Operations | Agent runtimes and workflow orchestration, tool calling, MCP concepts, identity and per-tool authorization, short/long-term state, queues, timeouts, retries, idempotency, human approvals, sandboxing, tracing and resource controls | [ ] Planned |
+| 10 | Production AI Platform Capstone | Design and implement a secure, observable, scalable AI platform with model serving, inference gateway, MLOps workflow, RAG/agent workload, GitOps, SLOs and FinOps | [ ] Planned |
+| 11 | AI Platform Operations and Incident Engineering | Runbooks for GPU/node/model failures, capacity exhaustion, queue backlogs, degraded retrieval, agent runaway loops, provider outages, failover, disaster recovery and incident postmortems | [ ] Planned |
 
 **Practical outcome:** Deliver a portfolio-grade AI platform architecture and implementation that brings together model delivery, GPU inference, Kubernetes, observability, security, scaling and cost controls.
 
@@ -198,16 +204,16 @@ We will learn a focused stack deeply instead of collecting tools without a reaso
 |---|---|
 | Languages and APIs | Python, FastAPI, HTTP, async processing |
 | Containers | Docker, OCI images, NVIDIA Container Toolkit |
-| Orchestration | Kubernetes, Helm |
+| Orchestration | Kubernetes, Helm; Kueue for queued/fair-shared AI workloads when needed |
 | Cloud and IaC | AWS/GCP, Terraform, IAM, object storage, networking and GPU instances |
 | Model ecosystem | Hugging Face Hub, model/tokenizer/config artifacts, Safetensors, GGUF |
-| Inference | vLLM, llama.cpp; Triton as an alternative architecture |
+| Inference | vLLM as the primary deep-dive; SGLang, llama.cpp and Triton for architecture comparison; NVIDIA Dynamo for distributed serving concepts |
 | MLOps | MLflow, model registry, dataset/artifact versioning |
 | Pipelines and delivery | Jenkins, Kubernetes Jobs, Argo Workflows/Kubeflow Pipelines where justified, ArgoCD |
 | Observability | Prometheus, Grafana, OpenTelemetry |
-| RAG infrastructure | Embeddings, vector search, Qdrant/FAISS or another selected vector store |
+| RAG infrastructure | Embeddings, vector search, Qdrant/FAISS or another selected vector store; ingestion, hybrid retrieval, access filters and evaluation |
 
-We will introduce other tools only when they solve a concrete problem. KServe, Kueue, Ray Serve, Kubeflow and similar systems are useful technologies to understand, but they are not all mandatory prerequisites.
+We will introduce other tools only when they solve a concrete problem. KServe, Kueue, Ray Serve, Kubeflow, NVIDIA Dynamo, SGLang and Gateway API Inference Extension are useful technologies to understand, but they are not all mandatory prerequisites. We will go deep on one primary serving path and learn the alternatives through architecture and trade-off comparisons.
 
 ## Cross-cutting engineering topics
 
@@ -219,7 +225,9 @@ These are revisited in the phase where they matter:
 - **Storage:** object storage, PVCs, caching, throughput, persistence, backup and recovery.
 - **Security:** IAM, RBAC, secrets, encryption, network policy, image scanning and artifact provenance.
 - **Reliability:** health checks, graceful shutdown, retries, timeouts, queues, backpressure, SLOs and incident response.
-- **Observability:** metrics, logs, traces, dashboards, alerting and workload-level telemetry.
+- **Observability:** metrics, logs, traces, dashboards, alerting and workload-level telemetry; GenAI traces for model calls, retrieval, agent steps and tool execution; token/cost/quality signals and privacy-aware sampling/redaction.
+- **AI capacity and scheduling:** GPU partitioning/sharing, queueing, quotas, fair sharing, topology-aware placement, workload admission and capacity reservations.
+- **Inference traffic management:** model-aware routing, gateway/API controls, rate limits, retries, fallback, traffic splitting and safe model rollouts.
 - **FinOps:** utilization, capacity, right-sizing, cost attribution and cost per workload.
 - **Infrastructure as Code and GitOps:** Terraform, Jenkins, ArgoCD, immutable artifacts and controlled promotion.
 
@@ -227,7 +235,7 @@ These are revisited in the phase where they matter:
 
 To keep the journey focused on the target role:
 
-**We will cover:** ML lifecycle fundamentals; practical math; model artifacts; tokenization, embeddings and Transformers; inference internals; GPU infrastructure; Kubernetes AI workloads; MLOps/LLMOps automation; evaluation; RAG/agent infrastructure; production observability, security, reliability and FinOps.
+**We will cover:** ML lifecycle fundamentals; practical math; model artifacts; tokenization, embeddings and Transformers; inference internals; GPU infrastructure and sharing; Kubernetes AI workloads and scheduling; MLOps/LLMOps automation; prompt/model lifecycle; evaluation; inference gateways and routing; distributed inference concepts; RAG/agent infrastructure; production observability, security, reliability and FinOps.
 
 **We will not make core prerequisites out of:** research-level statistics, deriving ML algorithms in depth, advanced feature-engineering specialization, developing novel neural-network architectures, training foundation models from scratch at research scale, or building data-science portfolios. We may study specialist topics when they directly affect an infrastructure design decision.
 
@@ -255,3 +263,36 @@ To keep the journey focused on the target role:
 8. When a lesson is marked complete, preserve the knowledge-check result and practical-review outcome where known.
 9. Individual lesson documents may be added as we study them. This file remains the master index and progress tracker.
 10. The next learning activity is to close the outstanding Phase 1 knowledge checks and practical exercises, then continue with the remaining Phase 1 lessons in order.
+11. New topics added in this review are part of the same canonical roadmap. They do not create a separate track; learn them in their assigned phase and only at the depth required for platform engineering.
+
+
+## 2026 curriculum review — targeted additions
+
+**Review date:** 2026-11-28
+
+The existing six-phase structure was retained. This review added only operational topics that were under-specified for a senior DevOps engineer targeting AI Infrastructure, MLOps and LLMOps roles:
+
+- **GPU tenancy and scheduling:** MIG versus time-slicing, queueing, quotas, fair sharing and topology-aware placement.
+- **Distributed workload operations:** practical data-parallel training concepts, gang scheduling, NCCL awareness, checkpoints and recovery.
+- **Inference platform layer:** model-aware gateways, routing, traffic splitting, priorities, rate limits and safe rollouts.
+- **Distributed serving:** prefill/decode separation, KV-cache transfer/reuse and distributed serving orchestration. NVIDIA Dynamo is an architecture to understand, not a mandatory tool to master.
+- **LLM application lifecycle:** prompt/configuration versioning and release management.
+- **GenAI quality and observability:** traces across model, retrieval and tool calls; token/cost/latency signals; RAG and agent evaluation; privacy-aware telemetry.
+- **RAG operations:** freshness, re-indexing, deletion, metadata filters, tenant isolation, retrieval evaluation and recovery.
+- **Agent operations and security:** tool identity/authorization, bounded permissions, human approval, idempotency, sandboxing and agent-specific threat models.
+- **AI incident engineering:** runbooks and recovery for GPU, model-serving, queue, retrieval and agent failures.
+
+### 2026 reference material used for this review
+
+These references inform the topics, not a requirement to adopt every product:
+
+- Kubernetes Gateway API Inference Extension — model-aware routing, endpoint selection, traffic splitting and inference-aware load balancing: https://gateway-api-inference-extension.sigs.k8s.io/
+- Kubernetes Kueue — workload admission, quotas, fair sharing, preemption, topology-aware scheduling and training/inference workload management: https://kueue.sigs.k8s.io/docs/overview/
+- NVIDIA GPU Operator — MIG and GPU time-slicing, including their isolation trade-offs: https://docs.nvidia.com/datacenter/cloud-native/gpu-operator/latest/gpu-sharing.html
+- vLLM production metrics and disaggregated serving documentation: https://docs.vllm.ai/en/latest/design/metrics/ and https://docs.vllm.ai/en/latest/examples/disaggregated/disaggregated_serving/
+- NVIDIA Dynamo — distributed inference, KV-aware routing, cache management and engine interoperability: https://docs.nvidia.com/dynamo/
+- MLflow GenAI tracing and evaluation — traces for LLM calls, retrieval, tools, token usage, latency, cost and quality: https://mlflow.org/docs/latest/llms/tracing/
+- OpenTelemetry GenAI semantic conventions — emerging conventions for inference, retrieval, tool execution and agent spans: https://github.com/open-telemetry/semantic-conventions-genai
+- OWASP GenAI Security Project — 2026 LLM and agentic application security risks: https://genai.owasp.org/
+
+**Scope guardrail:** We will not turn this into a survey of every AI framework or a research course. vLLM remains the primary serving implementation for hands-on depth; alternatives are learned when they clarify architecture, interoperability or operational trade-offs. Kueue, Gateway API Inference Extension and Dynamo are introduced when their platform problems arise, not treated as mandatory prerequisites for every deployment.
