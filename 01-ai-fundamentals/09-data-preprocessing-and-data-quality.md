@@ -57,13 +57,13 @@ That process is called **data preprocessing**.
 
 ### The ML data preparation pipeline
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
     A["Raw data<br/>Metrics, logs, events, datasets"] --> B["Data preprocessing<br/>Cleaning · Imputation · Encoding · Scaling"]
     B --> C["ML model<br/>Training and evaluation"]
     C --> D["Model artifact<br/>Model + fitted preprocessing"]
     D --> E["Production inference<br/>New data receives the same preprocessing"]
-\`\`\`
+```
 
 As a DevOps engineer, think of preprocessing as a repeatable build process.
 
@@ -118,9 +118,9 @@ Those are two very different conditions.
 
 Sometimes, you should also create a separate feature such as:
 
-\`\`\`python
+```python
 cpu_metric_missing = true
-\`\`\`
+```
 
 This allows the model to learn whether missing telemetry itself is associated with failures.
 
@@ -132,9 +132,9 @@ The important engineering decision isn't just how to fill missing data. It's und
 
 Consider CPU usage:
 
-\`\`\`text
+```text
 45, 50, 55, 60, 65, 120
-\`\`\`
+```
 
 Most values are between 45 and 65, but one value is 120.
 
@@ -193,13 +193,13 @@ Transforms data based on its mean and standard deviation.
 
 You may see this in Python as:
 
-\`\`\`python
+```python
 from sklearn.preprocessing import StandardScaler
 
 scaler = StandardScaler()
 
 X_train_scaled = scaler.fit_transform(X_train)
-\`\`\`
+```
 
 You don't need to calculate the transformation manually.
 
@@ -209,13 +209,13 @@ Understand that standardization changes the scale and distribution of a feature.
 
 Transforms values into a specified range, commonly 0 to 1.
 
-\`\`\`python
+```python
 from sklearn.preprocessing import MinMaxScaler
 
 scaler = MinMaxScaler()
 
 X_train_scaled = scaler.fit_transform(X_train)
-\`\`\`
+```
 
 ### Which models need scaling?
 
@@ -264,7 +264,7 @@ The model development process has allowed information from data reserved for eva
 
 ### Correct approach
 
-\`\`\`mermaid
+```mermaid
 flowchart TD
     A["1. Split the dataset"] --> B["Training data"]
     A --> C["Validation / Test"]
@@ -274,23 +274,23 @@ flowchart TD
     C --> G["Apply learned parameters"]
     F --> H["Model training"]
     G --> I["Model evaluation"]
-\`\`\`
+```
 
 The test set must not influence the fitting process.
 
 Let's understand two important operations.
 
-- \`fit()\` — learns preprocessing parameters from data.
-- \`transform()\` — applies the learned transformation to data.
+- `fit()` — learns preprocessing parameters from data.
+- `transform()` — applies the learned transformation to data.
 
 For example:
 
-\`\`\`python
+```python
 scaler.fit(X_train)
 
 X_train_scaled = scaler.transform(X_train)
 X_test_scaled = scaler.transform(X_test)
-\`\`\`
+```
 
 Notice that we never fit the scaler on test data.
 
@@ -312,7 +312,7 @@ Because a model with data leakage can show excellent test results but perform po
 
 Now let's connect these concepts to actual engineering.
 
-Instead of writing separate preprocessing scripts and model-training scripts, Scikit-learn provides a \`Pipeline\`.
+Instead of writing separate preprocessing scripts and model-training scripts, Scikit-learn provides a `Pipeline`.
 
 A pipeline lets you combine preprocessing steps and model training into a single reusable object.
 
@@ -343,7 +343,7 @@ We need different preprocessing for numerical and categorical features.
 
 Let's implement this.
 
-\`\`\`python
+```python
 from sklearn.compose import ColumnTransformer
 from sklearn.pipeline import Pipeline
 from sklearn.impute import SimpleImputer
@@ -377,19 +377,19 @@ model_pipeline = Pipeline([
     ("preprocessing", preprocessor),
     ("model", LogisticRegression())
 ])
-\`\`\`
+```
 
 Train it:
 
-\`\`\`python
+```python
 model_pipeline.fit(X_train, y_train)
-\`\`\`
+```
 
 Evaluate it:
 
-\`\`\`python
+```python
 predictions = model_pipeline.predict(X_test)
-\`\`\`
+```
 
 That's it.
 
@@ -401,22 +401,22 @@ Imagine you deploy a model through FastAPI.
 
 Your inference service receives a new request:
 
-\`\`\`json
+```json
 {
   "cpu": 75,
   "memory": 8192,
   "node_type": "compute",
   "region": "ap-south-1"
 }
-\`\`\`
+```
 
 You should not independently implement missing-value handling, scaling and encoding inside your FastAPI application.
 
 Instead, load the complete fitted pipeline and call:
 
-\`\`\`python
+```python
 prediction = model_pipeline.predict(new_data)
-\`\`\`
+```
 
 The same preprocessing learned during training is applied to new inference data.
 
@@ -430,15 +430,15 @@ Let's take this one step further.
 
 Suppose your training pipeline converts CPU usage from a percentage into a decimal:
 
-\`\`\`text
+```text
 75 → 0.75
-\`\`\`
+```
 
 But your production inference service sends:
 
-\`\`\`text
+```text
 75
-\`\`\`
+```
 
 What happens?
 
@@ -540,6 +540,18 @@ That's an important part of MLOps.
 
 Here's the bigger picture.
 
+```mermaid
+flowchart TD
+    A["Data ingestion"] --> B["Data validation"]
+    B --> C["Preprocessing"]
+    C --> D["Training"]
+    D --> E["Evaluation"]
+    E --> F["Model registry"]
+    F --> G["Deployment"]
+    G --> H["Inference service"]
+    H --> I["Monitoring"]
+    I --> A
+```
 A typical production workflow looks like this:
 
 1. Data is collected from source systems.
@@ -617,7 +629,7 @@ Now let's apply this to infrastructure data.
 
 Imagine you collected the following dataset from Kubernetes.
 
-\`\`\`python
+```python
 import pandas as pd
 
 data = {
@@ -637,7 +649,7 @@ data = {
 }
 
 df = pd.DataFrame(data)
-\`\`\`
+```
 
 ### Your tasks
 
@@ -645,10 +657,10 @@ df = pd.DataFrame(data)
 2. Decide how you would handle missing numerical and categorical data.
 3. Explain why you shouldn't automatically remove CPU usage of 120.
 4. Build a Scikit-learn preprocessing pipeline using:
-   - \`SimpleImputer\`
-   - \`StandardScaler\`
-   - \`OneHotEncoder\`
-   - \`ColumnTransformer\`
+   - `SimpleImputer`
+   - `StandardScaler`
+   - `OneHotEncoder`
+   - `ColumnTransformer`
 5. Split the data into training and testing datasets before fitting the pipeline.
 6. Train a simple classification model.
 7. Explain how you would package and reuse the fitted pipeline in a production inference service.
@@ -663,7 +675,7 @@ By the end, you should be comfortable explaining:
 - Why missing values and outliers matter.
 - Why some algorithms need feature scaling.
 - What data leakage is and how to prevent it.
-- What \`fit()\` and \`transform()\` mean.
+- What `fit()` and `transform()` mean.
 - Why Scikit-learn pipelines are useful.
 - What training-serving skew means.
 - What data drift and concept drift mean.
