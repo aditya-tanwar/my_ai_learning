@@ -152,7 +152,7 @@ Every lesson should include:
 | 10 | Benchmarking and Optimization | Workload design, load testing, profiling, bottleneck analysis, throughput tuning, capacity estimation and cost per token | [ ] Planned |
 | 11 | Serving Engine Trade-offs | vLLM, SGLang, llama.cpp and NVIDIA Triton; engine architecture, supported workload patterns and operational trade-offs without trying to master every engine | [ ] Planned |
 | 12 | Distributed Inference and Serving Orchestration | Disaggregated prefill/decode, KV-cache transfer and reuse, cache-aware routing, multi-node serving, frontends/workers and when frameworks such as NVIDIA Dynamo are justified | [ ] Planned |
-| 13 | Inference Gateways and Model Routing | Gateway API Inference Extension concepts, model-aware routing, endpoint selection, traffic splitting, priorities, authentication, rate limits, quotas, retries, fallback and safe model rollout | [ ] Planned |
+| 13 | Inference Gateways and Model Routing | Gateway API Inference Extension and LiteLLM gateway concepts; model-aware routing, provider/endpoint selection, traffic splitting, priorities, authentication, rate limits, quotas, retries, fallback, per-model/per-tenant usage and cost attribution, and safe model rollout | [ ] Planned |
 
 **Practical outcome:** Deploy an open LLM with vLLM, expose its API, generate concurrent traffic, measure TTFT/latency/throughput, inspect GPU memory and tune serving configuration.
 
@@ -164,7 +164,7 @@ Every lesson should include:
 
 | Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | AI and LLM Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, GPU and inference metrics, TTFT/TPOT, token usage, cost, prompt/response and tool-call traces, sampling, redaction and correlation IDs | [ ] Planned |
+| 01 | AI and LLM Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, GPU and inference metrics, TTFT/TPOT, token usage, cost, prompt/response and tool-call traces, data quality and data-drift signals, model-quality/performance degradation, cost and token-usage anomaly detection, sampling, redaction and correlation IDs | [ ] Planned |
 | 02 | SLOs, Reliability and Resilience | Availability, latency/error SLOs, capacity, high availability, failure recovery, disaster recovery and incident response | [ ] Planned |
 | 03 | Autoscaling and Capacity Engineering | GPU utilization, queue-aware scaling, replica sizing, warm pools, capacity reservations and load forecasting | [ ] Planned |
 | 04 | AI Platform and Model Supply-Chain Security | IAM/RBAC, workload identity, secrets, KMS, network isolation, least privilege, model/dataset provenance, artifact integrity, dependency and image scanning, SBOM/signing concepts and access audit | [ ] Planned |
@@ -207,7 +207,7 @@ We will learn a focused stack deeply instead of collecting tools without a reaso
 | Orchestration | Kubernetes, Helm; Kueue for queued/fair-shared AI workloads when needed |
 | Cloud and IaC | AWS/GCP, Terraform, IAM, object storage, networking and GPU instances |
 | Model ecosystem | Hugging Face Hub, model/tokenizer/config artifacts, Safetensors, GGUF |
-| Inference | vLLM as the primary deep-dive; SGLang, llama.cpp and Triton for architecture comparison; NVIDIA Dynamo for distributed serving concepts |
+| Inference | vLLM as the primary deep-dive; LiteLLM and Gateway API Inference Extension for gateway/routing concepts; SGLang, llama.cpp and Triton for architecture comparison; NVIDIA Dynamo for distributed serving concepts |
 | MLOps | MLflow, model registry, dataset/artifact versioning |
 | Pipelines and delivery | Jenkins, Kubernetes Jobs, Argo Workflows/Kubeflow Pipelines where justified, ArgoCD |
 | Observability | Prometheus, Grafana, OpenTelemetry |
@@ -225,7 +225,7 @@ These are revisited in the phase where they matter:
 - **Storage:** object storage, PVCs, caching, throughput, persistence, backup and recovery.
 - **Security:** IAM, RBAC, secrets, encryption, network policy, image scanning and artifact provenance.
 - **Reliability:** health checks, graceful shutdown, retries, timeouts, queues, backpressure, SLOs and incident response.
-- **Observability:** metrics, logs, traces, dashboards, alerting and workload-level telemetry; GenAI traces for model calls, retrieval, agent steps and tool execution; token/cost/quality signals and privacy-aware sampling/redaction.
+- **Observability:** metrics, logs, traces, dashboards, alerting and workload-level telemetry; GenAI traces for model calls, retrieval, agent steps and tool execution; data quality/drift and model-performance monitoring; token/cost/quality signals, anomaly alerts and privacy-aware sampling/redaction.
 - **AI capacity and scheduling:** GPU partitioning/sharing, queueing, quotas, fair sharing, topology-aware placement, workload admission and capacity reservations.
 - **Inference traffic management:** model-aware routing, gateway/API controls, rate limits, retries, fallback, traffic splitting and safe model rollouts.
 - **FinOps:** utilization, capacity, right-sizing, cost attribution and cost per workload.
@@ -274,10 +274,10 @@ The existing six-phase structure was retained. This review added only operationa
 
 - **GPU tenancy and scheduling:** MIG versus time-slicing, queueing, quotas, fair sharing and topology-aware placement.
 - **Distributed workload operations:** practical data-parallel training concepts, gang scheduling, NCCL awareness, checkpoints and recovery.
-- **Inference platform layer:** model-aware gateways, routing, traffic splitting, priorities, rate limits and safe rollouts.
+- **Inference platform layer:** model-aware gateways, routing, traffic splitting, priorities, rate limits, per-tenant usage/cost attribution and safe rollouts. LiteLLM is included as one gateway implementation to understand, not a mandatory platform dependency.
 - **Distributed serving:** prefill/decode separation, KV-cache transfer/reuse and distributed serving orchestration. NVIDIA Dynamo is an architecture to understand, not a mandatory tool to master.
 - **LLM application lifecycle:** prompt/configuration versioning and release management.
-- **GenAI quality and observability:** traces across model, retrieval and tool calls; token/cost/latency signals; RAG and agent evaluation; privacy-aware telemetry.
+- **GenAI quality and observability:** traces across model, retrieval and tool calls; data quality/drift and model-performance monitoring; token/cost/latency signals and anomaly alerts; RAG and agent evaluation; privacy-aware telemetry.
 - **RAG operations:** freshness, re-indexing, deletion, metadata filters, tenant isolation, retrieval evaluation and recovery.
 - **Agent operations and security:** tool identity/authorization, bounded permissions, human approval, idempotency, sandboxing and agent-specific threat models.
 - **AI incident engineering:** runbooks and recovery for GPU, model-serving, queue, retrieval and agent failures.
