@@ -87,7 +87,9 @@ Every lesson should include:
 
 **Infrastructure lens:** Container image design, reproducible environments, model artifact lifecycle, memory limits, startup/readiness behavior, concurrency and service reliability.
 
-**Hardware note:** The MacBook M1 with 8 GB RAM is suitable for small CPU/local experiments, but it is not an NVIDIA CUDA environment. CUDA and NVIDIA GPU work will use a suitable remote or cloud GPU environment when required.
+**Local hardware note:** The learning environment is the MacBook M1 with 8 GB unified memory. All required hands-on work must be achievable locally; do not make remote/cloud GPU access a prerequisite. Use small models, short context lengths, low concurrency and modest batch sizes. Keep Docker Desktop and local Kubernetes resource allocations conservative. Apple-silicon experiments may use native Apple-compatible tooling such as MLX where appropriate; containerized Linux workloads may be CPU-only. This machine is not an NVIDIA CUDA host.
+
+**GPU learning boundary:** Learn NVIDIA drivers, CUDA, Container Toolkit, GPU Operator, MIG, time-slicing, GPU scheduling and GPU-enabled serving through architecture, manifests, configuration review, scheduler/resource simulations and troubleshooting exercises. Clearly label these as simulated/design exercises. Do not claim that a GPU Operator, CUDA workload, MIG configuration or real GPU performance benchmark has been validated on this Mac. No paid cloud GPU or remote GPU node is required for curriculum completion.
 
 ## Phase 3 — Kubernetes and Cloud AI Infrastructure
 
@@ -108,7 +110,7 @@ Every lesson should include:
 | 11 | AI Workload Queues and Fair Sharing | Kueue concepts, queues, quotas, priority, admission, preemption, resource flavors, fair sharing and topology-aware scheduling; when a queueing layer is justified | [ ] Planned |
 | 12 | Kubernetes AI Deployment Project | Deploy an inference service with manual YAML first, then Helm; add storage, scheduling, security and monitoring basics; operate a queued GPU job | [ ] Planned |
 
-**Practical outcome:** Deploy an inference workload to Kubernetes, expose it, persist or retrieve model artifacts, and operate it reliably. Then deploy a GPU-enabled workload on a compatible cluster.
+**Practical outcome:** Build a local CPU-based inference service and deploy it to a local Kubernetes cluster (for example, kind or Docker Desktop Kubernetes), expose it, persist or retrieve model artifacts, and operate it reliably. Represent GPU node pools, labels, taints, resource requests, quotas and scheduling constraints in manifests and architecture exercises; simulate scheduling where useful. GPU hardware integration and actual GPU Operator operation are out of scope for the local-only lab.
 
 **Infrastructure lens:** Kubernetes scheduling, GPU allocation, node pools, storage performance, network paths, autoscaling, cloud quotas and operational resilience.
 
@@ -154,7 +156,7 @@ Every lesson should include:
 | 12 | Distributed Inference and Serving Orchestration | Disaggregated prefill/decode, KV-cache transfer and reuse, cache-aware routing, multi-node serving, frontends/workers and when frameworks such as NVIDIA Dynamo are justified | [ ] Planned |
 | 13 | Inference Gateways and Model Routing | Gateway API Inference Extension and LiteLLM gateway concepts; model-aware routing, provider/endpoint selection, traffic splitting, priorities, authentication, rate limits, quotas, retries, fallback, per-model/per-tenant usage and cost attribution, and safe model rollout | [ ] Planned |
 
-**Practical outcome:** Deploy an open LLM with vLLM, expose its API, generate concurrent traffic, measure TTFT/latency/throughput, inspect GPU memory and tune serving configuration.
+**Practical outcome:** Run a suitably small model locally with a runtime compatible with Apple silicon or CPU, expose its API, generate controlled concurrent traffic, and measure latency, throughput and host memory. Study vLLM configuration, deployment manifests, metrics and production tuning in depth, but treat actual vLLM-on-NVIDIA-GPU deployment, GPU-memory inspection and GPU performance benchmarking as architecture/configuration exercises unless compatible hardware becomes available.
 
 **Infrastructure lens:** GPU memory capacity, KV cache, batching efficiency, GPU utilization, multi-GPU topology, serving latency, throughput and cost per token.
 
@@ -207,7 +209,7 @@ We will learn a focused stack deeply instead of collecting tools without a reaso
 | Orchestration | Kubernetes, Helm; Kueue for queued/fair-shared AI workloads when needed |
 | Cloud and IaC | AWS/GCP, Terraform, IAM, object storage, networking and GPU instances |
 | Model ecosystem | Hugging Face Hub, model/tokenizer/config artifacts, Safetensors, GGUF |
-| Inference | vLLM as the primary deep-dive; LiteLLM and Gateway API Inference Extension for gateway/routing concepts; SGLang, llama.cpp and Triton for architecture comparison; NVIDIA Dynamo for distributed serving concepts |
+| Inference | vLLM as the primary production-architecture deep-dive; MLX or llama.cpp for local Apple-silicon/CPU experimentation where compatible; LiteLLM and Gateway API Inference Extension for gateway/routing concepts; SGLang and Triton for architecture comparison; NVIDIA Dynamo for distributed serving concepts |
 | MLOps | MLflow, model registry, dataset/artifact versioning |
 | Pipelines and delivery | Jenkins, Kubernetes Jobs, Argo Workflows/Kubeflow Pipelines where justified, ArgoCD |
 | Observability | Prometheus, Grafana, OpenTelemetry |
@@ -226,7 +228,8 @@ These are revisited in the phase where they matter:
 - **Security:** IAM, RBAC, secrets, encryption, network policy, image scanning and artifact provenance.
 - **Reliability:** health checks, graceful shutdown, retries, timeouts, queues, backpressure, SLOs and incident response.
 - **Observability:** metrics, logs, traces, dashboards, alerting and workload-level telemetry; GenAI traces for model calls, retrieval, agent steps and tool execution; data quality/drift and model-performance monitoring; token/cost/quality signals, anomaly alerts and privacy-aware sampling/redaction.
-- **AI capacity and scheduling:** GPU partitioning/sharing, queueing, quotas, fair sharing, topology-aware placement, workload admission and capacity reservations.
+- **AI capacity and scheduling:** GPU partitioning/sharing, queueing, quotas, fair sharing, topology-aware placement, workload admission and capacity reservations. On the local lab, practice these through resource models, manifests and scheduler simulations rather than real GPU allocation.
+- **Local-lab constraints:** local Kubernetes, CPU-first inference, Apple-silicon-compatible experiments, conservative memory/CPU budgets, and explicit separation of tested behavior from GPU architecture simulations.
 - **Inference traffic management:** model-aware routing, gateway/API controls, rate limits, retries, fallback, traffic splitting and safe model rollouts.
 - **FinOps:** utilization, capacity, right-sizing, cost attribution and cost per workload.
 - **Infrastructure as Code and GitOps:** Terraform, Jenkins, ArgoCD, immutable artifacts and controlled promotion.
