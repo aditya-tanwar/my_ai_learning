@@ -144,14 +144,14 @@ Every lesson should include:
 |---|---|---|---|
 | 01 | LLM Inference Request Lifecycle | Request admission, tokenization, scheduling, model execution, generation, streaming and response completion | [ ] Planned |
 | 02 | Prefill and Decode | Prompt processing, autoregressive token generation, compute patterns and why the two stages behave differently | [ ] Planned |
-| 03 | KV Cache and Memory Management | Key/value cache, memory growth with context/concurrency, cache allocation, fragmentation and capacity trade-offs | [ ] Planned |
+| 03 | KV Cache and Memory Management | Key/value cache, memory growth with context/concurrency, cache allocation, fragmentation, KV-cache pressure, eviction/preemption behavior and capacity trade-offs; estimate memory from model weights, KV cache, runtime/workspace overhead and concurrency | [ ] Planned |
 | 04 | Inference Performance Metrics | Time to first token (TTFT), inter-token latency, tokens/sec, throughput, concurrency, queue time and tail latency | [ ] Planned |
 | 05 | Batching and Request Scheduling | Static/dynamic/continuous batching, admission control, queueing, fairness and throughput/latency trade-offs | [ ] Planned |
 | 06 | vLLM Architecture and Deployment | vLLM serving architecture, OpenAI-compatible API, streaming, model loading, configuration and Kubernetes deployment | [ ] Planned |
-| 07 | GPU Architecture and CUDA for Serving | GPU compute, VRAM, memory bandwidth, drivers, CUDA runtime, kernel execution and compatibility troubleshooting | [ ] Planned |
+| 07 | GPU Architecture and CUDA for Serving | GPU compute, VRAM capacity and memory bandwidth, model-weight/activation/KV-cache/runtime memory budgets, context-length and concurrency limits, CUDA memory allocation, fragmentation, out-of-memory diagnosis, drivers, CUDA runtime, kernel execution and compatibility troubleshooting | [ ] Planned |
 | 08 | Precision and Quantization | FP32, FP16, BF16, INT8, INT4, quantization trade-offs, model formats and quality/performance implications | [ ] Planned |
 | 09 | Multi-GPU Inference | Tensor parallelism, pipeline parallelism concepts, NCCL, GPU topology, communication overhead and placement | [ ] Planned |
-| 10 | Benchmarking and Optimization | Workload design, load testing, profiling, bottleneck analysis, throughput tuning, capacity estimation and cost per token | [ ] Planned |
+| 10 | Benchmarking and Optimization | Workload design, load testing, profiling, bottleneck analysis, throughput tuning, VRAM/KV-cache capacity estimation, OOM and saturation testing, context/concurrency trade-offs and cost per token | [ ] Planned |
 | 11 | Serving Engine Trade-offs | vLLM, SGLang, llama.cpp and NVIDIA Triton; engine architecture, supported workload patterns and operational trade-offs without trying to master every engine | [ ] Planned |
 | 12 | Distributed Inference and Serving Orchestration | Disaggregated prefill/decode, KV-cache transfer and reuse, cache-aware routing, multi-node serving, frontends/workers and when frameworks such as NVIDIA Dynamo are justified | [ ] Planned |
 | 13 | Inference Gateways and Model Routing | Gateway API Inference Extension and LiteLLM gateway concepts; model-aware routing, provider/endpoint selection, traffic splitting, priorities, authentication, rate limits, quotas, retries, fallback, per-model/per-tenant usage and cost attribution, and safe model rollout | [ ] Planned |
@@ -166,10 +166,10 @@ Every lesson should include:
 
 | Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | AI and LLM Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, GPU and inference metrics, TTFT/TPOT, token usage, cost, prompt/response and tool-call traces, data quality and data-drift signals, model-quality/performance degradation, cost and token-usage anomaly detection, sampling, redaction and correlation IDs | [ ] Planned |
+| 01 | AI and LLM Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, GPU and inference metrics, TTFT, time per output token (TPOT), inter-token latency, tokens/sec, queue time, token usage, cost, prompt/response and tool-call traces, data quality, feature/data drift and concept-drift signals, model-quality/performance degradation, drift baselines and alerting (including delayed-label limitations), cost and token-usage anomaly detection, sampling, redaction and correlation IDs | [ ] Planned |
 | 02 | SLOs, Reliability and Resilience | Availability, latency/error SLOs, capacity, high availability, failure recovery, disaster recovery and incident response | [ ] Planned |
 | 03 | Autoscaling and Capacity Engineering | GPU utilization, queue-aware scaling, replica sizing, warm pools, capacity reservations and load forecasting | [ ] Planned |
-| 04 | AI Platform and Model Supply-Chain Security | IAM/RBAC, workload identity, secrets, KMS, network isolation, least privilege, model/dataset provenance, artifact integrity, dependency and image scanning, SBOM/signing concepts and access audit | [ ] Planned |
+| 04 | AI Platform and Model Supply-Chain Security | IAM/RBAC, workload identity, secrets, KMS, network isolation, least privilege, model/dataset provenance, training-data and model-weight poisoning/backdoor risks, trusted model sources/registries, artifact hashes and signature verification, AI/ML-BOM concepts, immutable versioning, dependency and image scanning, safe model loading, approval gates and access audit | [ ] Planned |
 | 05 | LLM and Agentic Application Security | Prompt injection, sensitive-data leakage, excessive agency, tool misuse, identity/privilege abuse, memory/context poisoning, vector/embedding weaknesses, unbounded consumption, output validation and sandboxing | [ ] Planned |
 | 06 | Multi-Tenancy and Platform Governance | Tenant isolation, quotas, rate limits, resource fairness, namespaces, policy controls and usage attribution | [ ] Planned |
 | 07 | AI FinOps | GPU cost drivers, utilization, idle capacity, right-sizing, spot/on-demand trade-offs, cost per request/token and chargeback | [ ] Planned |
@@ -277,13 +277,13 @@ The existing six-phase structure was retained. This review added only operationa
 
 - **GPU tenancy and scheduling:** MIG versus time-slicing, queueing, quotas, fair sharing and topology-aware placement.
 - **Distributed workload operations:** practical data-parallel training concepts, gang scheduling, NCCL awareness, checkpoints and recovery.
-- **Inference platform layer:** model-aware gateways, routing, traffic splitting, priorities, rate limits, per-tenant usage/cost attribution and safe rollouts. LiteLLM is included as one gateway implementation to understand, not a mandatory platform dependency.
+- **Inference platform layer:** vLLM as the primary serving-engine deep dive; model-aware gateways, routing, traffic splitting, priorities, rate limits, retries/fallback, per-tenant usage/cost attribution and safe rollouts. LiteLLM and Kubernetes Gateway API Inference Extension are included as implementation patterns, not mandatory platform dependencies.
 - **Distributed serving:** prefill/decode separation, KV-cache transfer/reuse and distributed serving orchestration. NVIDIA Dynamo is an architecture to understand, not a mandatory tool to master.
 - **LLM application lifecycle:** prompt/configuration versioning and release management.
-- **GenAI quality and observability:** traces across model, retrieval and tool calls; data quality/drift and model-performance monitoring; token/cost/latency signals and anomaly alerts; RAG and agent evaluation; privacy-aware telemetry.
+- **GenAI quality and observability:** traces across model, retrieval and tool calls; TTFT, TPOT/inter-token latency, tokens/sec, queue time and token/cost signals; feature/data and concept drift detection with baselines, delayed-label caveats and model-performance monitoring; anomaly alerts; RAG and agent evaluation; privacy-aware telemetry.
 - **RAG operations:** freshness, re-indexing, deletion, metadata filters, tenant isolation, retrieval evaluation and recovery.
 - **Agent operations and security:** tool identity/authorization, bounded permissions, human approval, idempotency, sandboxing and agent-specific threat models.
-- **AI incident engineering:** runbooks and recovery for GPU, model-serving, queue, retrieval and agent failures.
+- **AI incident engineering:** runbooks and recovery for GPU/VRAM exhaustion and OOMs, model-serving, queue, retrieval and agent failures.
 
 ### 2026 reference material used for this review
 
