@@ -183,7 +183,7 @@ Why was it flagged?
 
 ### **Tools worth knowing**
 
-![SHAP Values for Model Interpretability | MetricGate](https://images.openai.com/static-rsc-4/rYCO420dBoL0Ui46AQzvBQaNa4-tkW39jztGzIfMP3L1UpQgBUTJle--zWg7oH4nYGRedrRuk_Dv6EGE-ktjKxd_7pm6yFcha0tv08cpdckF1yya6Kno1SFOuZve-uKl_sdVPYsMMpwl8YUUSRYek35HgrWvEgZVjdGOrfjWI5c?purpose=inline)
+!![SHAP Values for Model Interpretability | MetricGate](https://images.openai.com/static-rsc-4/rYCO420dBoL0Ui46AQzvBQaNa4-tkW39jztGzIfMP3L1UpQgBUTJle--zWg7oH4nYGRedrRuk_Dv6EGE-ktjKxd_7pm6yFcha0tv08cpdckF1yya6Kno1SFOuZve-uKl_sdVPYsMMpwl8YUUSRYek35HgrWvEgZVjdGOrfjWI5c?purpose=inline)
 
 **SHAP**
 
@@ -191,7 +191,7 @@ Explains feature contributions to individual predictions and overall model behav
 
 Useful for understanding model decisions.
 
-![Which Explanation Can You Trust? SHAP vs LIME on Heart Disease Prediction | by Myakalarajkumar | Medium](https://images.openai.com/static-rsc-4/Gr56CPVKitXl1SVTSAUV0bJrs5ViKFLygGfdpDvF8bThFWyjLIWItDpn-xhlAaeElzE_ayWkwEjFmy8bpBdkHy7jSoY3N4Kqh4F-DHaZp5sF8KEFVOGNcdBTf1HQJ_IkxNBacnIKGkE-FSlXk6U715j3EOMyfQMfiSBXpFjgTKQ?purpose=inline)
+!![Which Explanation Can You Trust? SHAP vs LIME on Heart Disease Prediction | by Myakalarajkumar | Medium](https://images.openai.com/static-rsc-4/Gr56CPVKitXl1SVTSAUV0bJrs5ViKFLygGfdpDvF8bThFWyjLIWItDpn-xhlAaeElzE_ayWkwEjFmy8bpBdkHy7jSoY3N4Kqh4F-DHaZp5sF8KEFVOGNcdBTf1HQJ_IkxNBacnIKGkE-FSlXk6U715j3EOMyfQMfiSBXpFjgTKQ?purpose=inline)
 
 **LIME**
 
@@ -539,7 +539,7 @@ This is where a model registry becomes useful. We'll cover it in detail in the M
 
 Let's introduce a tool you'll encounter frequently in MLOps.
 
-![Aprende a programar desde tu casa](https://images.openai.com/static-rsc-4/B0i4FjKtuevBCMrh2NGSeCmQrkVoHHDsHRUZjGH9wHaqtr9GzH8PY8Ni6ih7XxltdsuJZQzXGHaoKqwvNBKDY8GmfWFdeQhTVYXZRi5kdhvBVEDkUpp8oyX__3UvivrIyJNi9R9XdkZnYj0vygLQ_3w-ElxuzxNPUVqqpj58mPo?purpose=inline)
+!![Aprende a programar desde tu casa](https://images.openai.com/static-rsc-4/B0i4FjKtuevBCMrh2NGSeCmQrkVoHHDsHRUZjGH9wHaqtr9GzH8PY8Ni6ih7XxltdsuJZQzXGHaoKqwvNBKDY8GmfWFdeQhTVYXZRi5kdhvBVEDkUpp8oyX__3UvivrIyJNi9R9XdkZnYj0vygLQ_3w-ElxuzxNPUVqqpj58mPo?purpose=inline)
 
 **MLflow**
 
@@ -568,7 +568,7 @@ In ML, you additionally track:
 
 ### **MLflow architecture**
 
-![An introduction to MLOps with MLflow](https://images.openai.com/static-rsc-4/0G_dgZX1Bd49vkaPiDfLLMwuzaQNUdHl_3BtICd65ULOXDNZBmiTkvSL3zJ4ybBUJcce-hPLB0POJGQo2uMB8d5hLE5vxNpaBFNM5eabbnxNTUlsEFXStB8Twq7kvsm-qBOCPehtuS_onrzKshRnTjbQAUYbxoSrsPDhzdqcg4o?purpose=inline)
+!![An introduction to MLOps with MLflow](https://images.openai.com/static-rsc-4/0G_dgZX1Bd49vkaPiDfLLMwuzaQNUdHl_3BtICd65ULOXDNZBmiTkvSL3zJ4ybBUJcce-hPLB0POJGQo2uMB8d5hLE5vxNpaBFNM5eabbnxNTUlsEFXStB8Twq7kvsm-qBOCPehtuS_onrzKshRnTjbQAUYbxoSrsPDhzdqcg4o?purpose=inline)
 
 [inseefrlab.github.io](https://inseefrlab.github.io/formation-mlops/slides/en/index.html?utm_source=chatgpt.com)
 
@@ -997,3 +997,136 @@ Dropout
 **5. What information is important for reproducing an ML training run?**
 
 Only the model filename
+
+Only the Python script
+
+Dataset version, code, configuration, dependencies and environment details
+
+Only the accuracy score
+
+**6. What does MLflow primarily provide?**
+
+Kubernetes GPU scheduling
+
+Experiment tracking, artifact management and model lifecycle capabilities
+
+A replacement for Git
+
+Automatic data labelling
+
+**7. What is data lineage?**
+
+The number of parameters in a model
+
+The history and origin of data and artifacts through the ML lifecycle
+
+The GPU memory consumed by training
+
+The number of epochs
+
+**8. Why shouldn't every newly trained model be deployed automatically?**
+
+Models cannot be deployed through CI/CD
+
+A candidate must pass evaluation and release controls before production promotion
+
+Training always changes the Python version
+
+Model registries cannot store multiple models
+
+Submit answers
+
+## **13. Practical exercise — Design a reproducible ML platform**
+
+Let's use your DevOps experience.
+
+Your team has a pod failure prediction model. It is trained through Jenkins and deployed to Kubernetes.
+
+Currently:
+
+- Training code is in GitHub.
+- Datasets are stored in S3.
+- Model files are stored in S3.
+- The inference API runs on EKS.
+- Training is performed in Docker.
+- Jenkins runs the pipeline.
+
+Your task is to design the missing MLOps capabilities.
+
+**Part A — Reproducibility**
+
+Explain how you would record:
+
+1. Dataset version.
+2. Git commit SHA.
+3. Python and dependency versions.
+4. Training configuration.
+5. Docker image digest.
+6. Model artifact version.
+
+**Part B — MLflow architecture**
+
+Where would you deploy MLflow?
+
+Explain:
+
+- Tracking server.
+- Backend metadata database.
+- Artifact storage.
+- Authentication and access control.
+
+**Part C — Production security**
+
+How would you protect:
+
+- Training datasets?
+- Model artifacts?
+- Credentials?
+- MLflow access?
+
+**Part D — Deployment governance**
+
+Suppose a new model performs worse than the currently deployed model.
+
+How should your Jenkins and GitOps workflows prevent it from reaching production?
+
+You don't need to write code. I want to see the architecture and engineering decisions.
+
+## **Lesson 11 summary**
+
+| Concept             | What you should remember                                        |
+| ------------------- | --------------------------------------------------------------- |
+| Responsible AI      | Safe, fair, transparent and accountable AI                      |
+| Bias                | Systematic distortion in model behavior                         |
+| Explainability      | Understanding model predictions                                 |
+| Data privacy        | Protecting sensitive data throughout the ML lifecycle           |
+| Reproducibility     | Recording everything needed to recreate or investigate training |
+| Dataset versioning  | Knowing exactly which data produced a model                     |
+| Experiment tracking | Recording parameters, metrics and artifacts                     |
+| MLflow              | Experiment tracking and model lifecycle platform                |
+| Data lineage        | Traceability from data source to production model               |
+| Model governance    | Evaluation, approval, deployment and rollback controls          |
+
+**The most important takeaway:** A production model must be more than accurate. It must be traceable, secure, reproducible, auditable and safely deployable.
+
+## **Phase 1 completion checkpoint**
+
+That's the end of the planned Phase 1 lesson sequence!
+
+You have now covered the foundational concepts from AI and traditional ML through model training, feature engineering, data quality, imbalanced datasets, responsible AI and reproducibility.
+
+However, Phase 1 isn't automatically complete yet. We still have outstanding knowledge checks and practical exercises from earlier lessons, including Lessons 4, 5, 8, 9, 10 and 11.
+
+We'll review the outstanding work rather than silently marking lessons complete.
+
+**Next phase: Phase 2 — Mathematics and Data Fundamentals.**
+
+We'll approach it from an engineering perspective:
+
+- Tensors and shapes because PyTorch and GPUs operate on tensors.
+- Matrix multiplication because neural networks and attention use it.
+- Statistics because you need to interpret model metrics and monitoring.
+- Probability because model predictions and uncertainty depend on it.
+- Gradients because training and optimization use them.
+
+No research-level derivations. We'll focus on understanding what happens inside the systems you'll deploy and operate. 💪
