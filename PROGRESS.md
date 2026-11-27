@@ -33,10 +33,10 @@ The goal is applied AI Infrastructure / MLOps / LLMOps competence—not research
 | 05 | [Model Training Fundamentals](01-ai-fundamentals/05-model-training-fundamentals.md) | Parameters, weights, bias, hyperparameters, loss, optimization, batches, steps and epochs | Taught — knowledge check 7/8; practical exercise pending |
 | 06 | [Neural Networks and the Perceptron](01-ai-fundamentals/06-neural-networks-perceptron.md) | Neurons, layers, weights, bias, activations and the perceptron | Learner-confirmed complete |
 | 07 | [How Neural Networks Learn: Forward Propagation, Backpropagation and Gradients](01-ai-fundamentals/07-forward-propagation-backpropagation-gradients.md) | Forward pass, loss, gradients, chain rule, backpropagation, optimizers and training iterations | Learner-confirmed complete — practical and knowledge check reported complete; answer review not recorded |
-| 08 | Datasets, Features, Labels, Data Quality and Data Leakage | Samples/records, feature types, labels, missing values, categorical data, preprocessing boundaries, leakage examples | Planned |
-| 09 | Model Evaluation, Baselines and Class Imbalance | Baseline models, metric selection, threshold trade-offs, imbalanced datasets, precision/recall trade-offs, ROC-AUC and PR-AUC at a conceptual level | Planned |
-| 10 | The End-to-End Machine Learning Lifecycle | Data collection and preparation, training, validation, testing, packaging, deployment, inference and monitoring | Planned |
-| 11 | Model Artifacts, Reproducibility and Responsible AI | Model files/checkpoints, configs, dependency capture, reproducibility, experiment metadata, bias, fairness, privacy and explainability basics | Planned |
+| 08 | [Feature Types and Feature Engineering](01-ai-fundamentals/08-feature-types-and-feature-engineering.md) | Numerical and categorical feature types; continuous/discrete; nominal/ordinal; one-hot and ordinal encoding; feature engineering; feature selection; feature pipelines and training-serving consistency | Taught — knowledge check and practical exercise pending |
+| 09 | Data Preprocessing and Data Quality | Missing values, outliers, scaling, normalization, standardization and preprocessing pipelines | Planned |
+| 10 | Model Baselines and Imbalanced Datasets | Baseline models, class weights, sampling strategies, ROC-AUC and PR-AUC, and metric selection for imbalanced data | Planned |
+| 11 | Responsible AI and ML Reproducibility | Bias, fairness, explainability, privacy, data lineage, reproducible experiments and artifact/configuration tracking | Planned |
 
 **Phase 1 practical outcome:** Train or use a small traditional ML model, evaluate it correctly, save the model artifact, load it again, and run inference on new input.
 
@@ -286,7 +286,8 @@ These skills should be revisited in the phases where they become relevant rather
 - Phase 1 lessons 04–05: taught; practical exercises pending.
 - Phase 1 lesson 06: learner-confirmed complete.
 - Phase 1 lesson 07: learner-confirmed complete; practical and knowledge check reported complete, but answer review is not recorded in this tracker.
-- Phase 1 lessons 08–11: planned.
+- Phase 1 lesson 08: taught; knowledge check and practical exercise pending review.
+- Phase 1 lessons 09–11: planned.
 - Phases 2–12: roadmap defined; lessons planned.
 
 ## Completion rule
