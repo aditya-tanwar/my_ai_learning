@@ -1,296 +1,257 @@
-# AI Infrastructure / MLOps Learning Roadmap & Progress
+# AI Infrastructure, MLOps & LLMOps — Master Roadmap and Progress
 
-This file is the single source of truth for the curriculum, lesson sequence, and learning progress.
-
-## How to use this roadmap
-
-- Lessons are organized by phase; lesson numbers restart within each phase.
-- **Planned** means the lesson is part of the curriculum but has not been taught.
-- **Taught** means the lesson content has been covered, but the required exercise or knowledge check is not yet complete.
-- **Learner-confirmed complete** means the learner has reported completing the lesson requirements; answer review may still be pending.
-- **Reviewed complete** means the practical work and knowledge check have been reviewed.
-- Do not silently promote a lesson to reviewed complete. Record the actual state and any pending work.
-- Every lesson should include first-principles explanations, key terminology, architecture or workflow diagrams where useful, practical examples, an infrastructure perspective, a knowledge check, and a hands-on exercise.
+> **Canonical roadmap:** This is the single source of truth for the learning journey, lesson order, scope and progress. We will follow this path without repeatedly redesigning it. A change is made only when there is a clear technical reason, and any change is recorded here.
 
 ## Learning destination
 
-Build the knowledge and practical skills to design, deploy, operate, secure, scale, and optimize production AI/ML systems. The path starts with AI/ML foundations, progresses through deep learning and LLM engineering, and finishes with production AI platforms on Kubernetes.
+Become capable of designing, building, deploying, operating, securing, scaling and optimizing production AI infrastructure and MLOps/LLMOps platforms.
 
-The goal is applied AI Infrastructure / MLOps / LLMOps competence—not research-level mathematical specialization.
+This curriculum is designed for an experienced Senior DevOps Engineer transitioning into **AI Infrastructure, MLOps and LLMOps**. It builds on existing strengths in Linux, Docker, Kubernetes, cloud infrastructure, Terraform, Jenkins, GitOps, security and observability.
+
+**This is not a data-science or ML-research curriculum.** You will learn the ML and LLM concepts needed to make sound infrastructure decisions, work effectively with ML engineers, and operate AI systems in production. Mathematics is practical and intuition-led; we will not spend time on research-level derivations or implementing algorithms from scratch.
+
+## How progress is tracked
+
+Each lesson has an explicit status:
+
+- [ ] **Planned** — in the curriculum, not yet taught.
+- [~] **Taught** — lesson content covered; knowledge check and/or practical work still needs completion or review.
+- [x] **Learner-confirmed complete** — you reported completing the required work; review may still be pending.
+- [✓] **Reviewed complete** — knowledge check and practical work have been reviewed.
+
+A lesson is not marked reviewed complete just because its content has been read. We will update the status after the actual knowledge check and practical exercise. Phase completion requires its exit criteria and practical outcome to be met.
+
+Every lesson should include:
+1. Clear first-principles explanations and accurate terminology.
+2. Architecture diagrams or workflows where they improve understanding.
+3. Examples grounded in real infrastructure and production operations.
+4. The AI Infrastructure / MLOps engineering perspective.
+5. A knowledge check.
+6. A practical exercise or implementation task.
+7. Explicit completion criteria.
 
 ---
 
-# Phase 1 — Artificial Intelligence Fundamentals
+# The canonical six-phase journey
 
-**Goal:** Understand what AI and ML are, how models learn, how their performance is evaluated, and how a trained model is used.
+## Phase 1 — Essential AI/ML and LLM Foundations
 
-| Lesson | Topic | Core coverage | Status |
+**Goal:** Understand the model lifecycle and the essential ML, deep-learning and LLM concepts required to deploy and operate AI workloads. Learn enough mathematics to understand tensors, model execution, metrics and GPU workloads—not to become a data scientist.
+
+| Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | [What Is Artificial Intelligence?](01-ai-fundamentals/01-what-is-artificial-intelligence.md) | AI vs ML vs deep learning vs generative AI; learning paradigms; practical examples | Reviewed complete — knowledge check 6/6 |
-| 02 | [Traditional Machine Learning](01-ai-fundamentals/02-traditional-machine-learning.md) | ML workflow; datasets, features and labels; training, validation and testing; common algorithms | Reviewed complete — knowledge check and practical reviewed |
-| 03 | [Classification, Regression, and Model Evaluation](01-ai-fundamentals/03-classification-regression-model-evaluation.md) | Classification vs regression; confusion matrix; accuracy, precision, recall and F1 | Reviewed complete — knowledge check 7/8; practical calculations reviewed |
-| 04 | [Overfitting, Underfitting, Bias, and Variance](01-ai-fundamentals/04-overfitting-underfitting-bias-variance.md) | Generalization; bias/variance; training vs validation behavior; regularization and early stopping | Taught — knowledge check 6/8; practical exercise pending |
-| 05 | [Model Training Fundamentals](01-ai-fundamentals/05-model-training-fundamentals.md) | Parameters, weights, bias, hyperparameters, loss, optimization, batches, steps and epochs | Taught — knowledge check 7/8; practical exercise pending |
-| 06 | [Neural Networks and the Perceptron](01-ai-fundamentals/06-neural-networks-perceptron.md) | Neurons, layers, weights, bias, activations and the perceptron | Learner-confirmed complete |
-| 07 | [How Neural Networks Learn: Forward Propagation, Backpropagation and Gradients](01-ai-fundamentals/07-forward-propagation-backpropagation-gradients.md) | Forward pass, loss, gradients, chain rule, backpropagation, optimizers and training iterations | Learner-confirmed complete — practical and knowledge check reported complete; answer review not recorded |
-| 08 | [Feature Types and Feature Engineering](01-ai-fundamentals/08-feature-types-and-feature-engineering.md) | Numerical and categorical feature types; continuous/discrete; nominal/ordinal; one-hot and ordinal encoding; feature engineering; feature selection; feature pipelines and training-serving consistency | Taught — knowledge check and practical exercise pending |
-| 09 | [Data Preprocessing and Data Quality](01-ai-fundamentals/09-data-preprocessing-and-data-quality.md) | Missing values, outliers, scaling, normalization, standardization and preprocessing pipelines | Taught — knowledge check and practical exercise pending |
-| 10 | [Model Baselines and Imbalanced Datasets](01-ai-fundamentals/10-model-baselines-and-imbalanced-datasets.md) | Baseline models, class weights, sampling strategies, ROC-AUC and PR-AUC, and metric selection for imbalanced data | Taught — knowledge check and practical exercise pending |
-| 11 | Responsible AI and ML Reproducibility | Bias, fairness, explainability, privacy, data lineage, reproducible experiments and artifact/configuration tracking | Planned |
+| 01 | What Is Artificial Intelligence? | AI vs ML vs deep learning vs generative AI; learning paradigms; practical use cases | [✓] Reviewed complete — knowledge check 6/6 |
+| 02 | Traditional Machine Learning | ML workflow; datasets, features and labels; training, validation and testing; common algorithm families | [✓] Reviewed complete — knowledge check and practical reviewed |
+| 03 | Classification, Regression and Model Evaluation | Classification vs regression; confusion matrix; accuracy, precision, recall and F1 | [✓] Reviewed complete — knowledge check 7/8; practical calculations reviewed |
+| 04 | Overfitting, Underfitting, Bias and Variance | Generalization; training vs validation behavior; regularization; early stopping; data leakage intuition | [~] Taught — knowledge check 6/8; practical exercise pending |
+| 05 | Model Training Fundamentals | Parameters, weights, bias, hyperparameters, loss, optimizers, batches, steps and epochs | [~] Taught — knowledge check 7/8; practical exercise pending |
+| 06 | Neural Networks and the Perceptron | Neurons, layers, weights, bias, activation functions and the perceptron | [x] Learner-confirmed complete |
+| 07 | How Neural Networks Learn | Forward propagation, loss, gradients, backpropagation, chain-rule intuition and optimizers | [x] Learner-confirmed complete — practical and knowledge check reported complete; review not recorded |
+| 08 | Feature Types and Feature Engineering | Numerical/categorical, continuous/discrete, nominal/ordinal; encoding; feature selection; feature pipelines; training-serving consistency | [~] Taught — knowledge check and practical exercise pending review |
+| 09 | Data Preprocessing and Data Quality | Missing values, outliers, scaling, normalization, standardization, data validation and preprocessing pipelines | [~] Taught — knowledge check and practical exercise pending |
+| 10 | Model Baselines and Imbalanced Datasets | Baselines, class weights, sampling, ROC-AUC, PR-AUC and metric selection | [~] Taught — knowledge check and practical exercise pending |
+| 11 | Responsible AI and ML Reproducibility | Bias, fairness, explainability, privacy, lineage, experiment tracking, artifact/configuration versioning and governance | [~] Taught — knowledge check and practical exercise pending |
+| 12 | Tensors, Shapes, Data Types and Devices | Scalars, vectors, matrices, tensors, dimensions, shapes, indexing, data types, CPU/GPU devices and memory intuition | [ ] Planned |
+| 13 | Linear Algebra for Model Execution | Dot products, matrix multiplication, dimensions, transposes and how neural-network layers use these operations | [ ] Planned |
+| 14 | Statistics and Probability for ML Operations | Mean, variance, standard deviation, distributions, correlation, probability, conditional probability and uncertainty; interpreting model metrics | [ ] Planned |
+| 15 | Optimization and Gradient Intuition | Derivatives, partial derivatives, gradients, gradient descent, learning rate and numerical stability at an engineering level | [ ] Planned |
+| 16 | Tokens and Tokenizers | Text-to-token conversion, token IDs, vocabulary, subword tokenization, context windows and token accounting | [ ] Planned |
+| 17 | Embeddings and Vector Representations | Embedding vectors, dimensions, semantic similarity, positional information and why embeddings matter to retrieval and LLMs | [ ] Planned |
+| 18 | Attention and Transformer Architecture | Queries, keys, values, self-attention, multi-head attention, masks, transformer blocks, residual connections and normalization | [ ] Planned |
+| 19 | LLM Model Concepts and Inference Overview | Next-token prediction, model parameters and configuration, checkpoints, model families, context length, training vs inference and generation flow | [ ] Planned |
 
-**Phase 1 practical outcome:** Train or use a small traditional ML model, evaluate it correctly, save the model artifact, load it again, and run inference on new input.
+**Practical outcome:** Train or use a small model, evaluate it, save and reload its artifact, and run inference. Also inspect tensors, tokenization and a small open model's configuration.
 
-**Phase 1 exit criteria:** Explain the ML lifecycle; distinguish training from inference; explain model parameters vs hyperparameters; interpret common evaluation metrics; identify overfitting, underfitting, data leakage and class imbalance; describe what must be saved to reproduce a model.
+**Infrastructure lens:** Model artifacts, data and tensor shapes, CPU/GPU execution, memory requirements, model inputs/outputs, reproducibility and inference as a production workload.
 
----
+**Phase 1 exit criteria:** Explain the ML lifecycle; distinguish training from inference; distinguish features, parameters and hyperparameters; interpret common metrics; explain overfitting and class imbalance; understand tensors and matrix operations; explain tokenization, embeddings and the high-level Transformer flow.
 
-# Phase 2 — Mathematics and Data Fundamentals
+## Phase 2 — Python, Docker and Local AI Deployment
 
-**Goal:** Build enough mathematical and data intuition to understand how ML and deep learning systems represent and process information.
+**Goal:** Move from understanding models to running pretrained models as services. Build and operate local inference workloads before introducing Kubernetes complexity.
 
-| Lesson | Topic | Core coverage | Status |
+| Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | Vectors, Matrices and Tensors | Scalars, vectors, matrices, tensor dimensions/shapes, indexing and basic operations | Planned |
-| 02 | Linear Algebra for ML | Dot products, matrix multiplication, dimensions, transposes and how neural-network layers use them | Planned |
-| 03 | Statistics and Descriptive Analysis | Mean, median, variance, standard deviation, distributions, outliers and correlation | Planned |
-| 04 | Probability Fundamentals | Probability, conditional probability, independence, common distributions and intuition for uncertainty | Planned |
-| 05 | Calculus and Optimization Intuition | Functions, derivatives, partial derivatives, gradients, chain rule and gradient descent intuition | Planned |
-| 06 | Data Preparation and Feature Engineering | Cleaning, missing values, encoding, scaling/normalization, train/validation/test splits and feature pipelines | Planned |
+| 01 | Python for AI Platform Workloads | Python environments, packaging, dependency locking, project structure, logging, exceptions and basic profiling | [ ] Planned |
+| 02 | Pretrained Model Lifecycle | Model repositories, model cards, configs, weights, tokenizers, downloads, gated access, checksums and trusted sources | [ ] Planned |
+| 03 | Loading Models and Running Inference | Model loading, input preparation, inference mode, output handling, CPU execution and memory behavior | [ ] Planned |
+| 04 | Building an Inference API with FastAPI | Request/response schemas, validation, model lifecycle, health/readiness endpoints, API versioning and error handling | [ ] Planned |
+| 05 | Docker for Model Serving | Image design, pinned dependencies, reproducible builds, non-root execution, model/image separation and image size | [ ] Planned |
+| 06 | Model Storage, Cache and Persistence | Model cache, persistent volumes, download strategy, startup time, artifact storage and avoiding repeated downloads | [ ] Planned |
+| 07 | CPU vs GPU Inference | Compute differences, memory/VRAM, batching basics, device selection and realistic local hardware limits | [ ] Planned |
+| 08 | GPU Containers and Runtime Compatibility | NVIDIA Container Toolkit, host driver vs container CUDA runtime, compatibility checks and GPU visibility | [ ] Planned |
+| 09 | Reliable Inference Services | Concurrency, async requests, queues, backpressure, timeouts, graceful shutdown, health checks and resource limits | [ ] Planned |
+| 10 | Local LLM Serving Project | Run a small open model locally; expose generation API; test streaming, caching, errors and resource use | [ ] Planned |
 
-**Practical outcome:** Build a repeatable data preprocessing pipeline and inspect how data transformations change model inputs.
+**Practical outcome:** Build a Dockerized inference API and a local LLM service. Exercise model downloads, caching, API requests and operational failure cases.
 
-**Infrastructure lens:** Dataset size, memory use, data formats, CPU vs GPU suitability, data loading and preprocessing bottlenecks.
+**Infrastructure lens:** Container image design, reproducible environments, model artifact lifecycle, memory limits, startup/readiness behavior, concurrency and service reliability.
 
----
+**Hardware note:** The MacBook M1 with 8 GB RAM is suitable for small CPU/local experiments, but it is not an NVIDIA CUDA environment. CUDA and NVIDIA GPU work will use a suitable remote or cloud GPU environment when required.
 
-# Phase 3 — Deep Learning
+## Phase 3 — Kubernetes and Cloud AI Infrastructure
 
-**Goal:** Understand multi-layer neural networks and gain practical experience training and using a model with PyTorch.
+**Goal:** Deploy and operate AI workloads on Kubernetes, including GPU-enabled workloads. Apply existing Kubernetes and cloud engineering skills to AI-specific scheduling, storage, networking and reliability problems.
 
-| Lesson | Topic | Core coverage | Status |
+| Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | Deep Neural Networks and Activation Functions | Hidden layers, depth, nonlinearities, ReLU, sigmoid, tanh, softmax and vanishing-gradient intuition | Planned |
-| 02 | Neural Network Architectures | MLPs, CNNs, RNNs and LSTMs; what problem each architecture is suited to | Planned |
-| 03 | PyTorch Fundamentals | Tensors, shapes, devices, autograd, modules, parameters and datasets/DataLoaders | Planned |
-| 04 | Building a Training Pipeline | Model definition, forward pass, loss, optimizer, training loop, validation loop and metrics | Planned |
-| 05 | Training Techniques and Stability | Learning-rate schedules, regularization, dropout, normalization, checkpointing, early stopping and gradient clipping | Planned |
-| 06 | GPU Training and Memory | CPU vs GPU, VRAM, batch size, mixed precision, memory bottlenecks and profiling basics | Planned |
-| 07 | Distributed Training Concepts | Data/model parallelism, multi-GPU training, communication overhead and checkpoint/recovery concepts | Planned |
+| 01 | AI Workload Patterns on Kubernetes | Online inference services vs batch training/inference jobs; Deployments, Jobs, Stateful workloads and workload lifecycle | [ ] Planned |
+| 02 | AI Cluster and GPU Node Architecture | CPU/GPU node pools, instance families, quotas, capacity, drivers, node preparation and failure domains | [ ] Planned |
+| 03 | NVIDIA Kubernetes Stack | Device plugin, NVIDIA GPU Operator, container runtime integration, drivers and GPU resource discovery | [ ] Planned |
+| 04 | GPU Scheduling and Placement | GPU resource requests, node selectors, affinity, taints/tolerations, topology awareness and scheduling failures | [ ] Planned |
+| 05 | Model and Dataset Storage | PVCs, CSI, object storage, model download/cache patterns, local NVMe considerations and storage throughput | [ ] Planned |
+| 06 | Networking and Service Exposure | Services, ingress/Gateway API, load balancing, DNS, TLS, NetworkPolicies and inference traffic paths | [ ] Planned |
+| 07 | Scaling AI Workloads | HPA, KEDA, custom metrics, queue depth, concurrency, scale-to-zero trade-offs and GPU scaling limitations | [ ] Planned |
+| 08 | Reliability and Rollouts | Probes, startup/warm-up, graceful termination, PDBs, rolling updates, model loading failures and rollback | [ ] Planned |
+| 09 | Infrastructure as Code for AI | Terraform for GPU nodes, IAM, networking, storage, secrets integration, quotas and environment provisioning | [ ] Planned |
+| 10 | Kubernetes AI Deployment Project | Deploy an inference service with manual YAML first, then Helm; add storage, scheduling, security and monitoring basics | [ ] Planned |
 
-**Practical outcome:** Train a small PyTorch neural network, validate it, save a checkpoint, reload it and run inference.
+**Practical outcome:** Deploy an inference workload to Kubernetes, expose it, persist or retrieve model artifacts, and operate it reliably. Then deploy a GPU-enabled workload on a compatible cluster.
 
-**Infrastructure lens:** CPU/GPU utilization, VRAM, RAM, storage throughput, data-loader performance and distributed communication.
+**Infrastructure lens:** Kubernetes scheduling, GPU allocation, node pools, storage performance, network paths, autoscaling, cloud quotas and operational resilience.
 
----
+## Phase 4 — MLOps and LLMOps Lifecycle Automation
 
-# Phase 4 — LLM Fundamentals
+**Goal:** Build repeatable, traceable and governed ML/LLM delivery workflows using familiar CI/CD and GitOps practices.
 
-**Goal:** Understand how large language models represent text and generate responses.
-
-| Lesson | Topic | Core coverage | Status |
+| Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | What Is an LLM? | Language modeling, next-token prediction, model families and common capabilities/limitations | Planned |
-| 02 | Tokenization and Tokenizers | Tokens, vocabulary, token IDs, subword tokenization, context windows and input/output token accounting | Planned |
-| 03 | Embeddings and Positional Information | Embedding vectors, semantic representation, positional embeddings/encodings and vector dimensions | Planned |
-| 04 | Attention and Self-Attention | Queries, keys, values, attention scores, masks and multi-head attention intuition | Planned |
-| 05 | Transformer Architecture | Transformer blocks, residual connections, normalization, feed-forward layers and encoder/decoder patterns | Planned |
-| 06 | How LLMs Are Trained and Adapted | Pretraining, supervised fine-tuning, instruction tuning, preference/alignment concepts and model limitations | Planned |
+| 01 | MLOps and LLMOps Architecture | ML lifecycle vs LLM application lifecycle; training, evaluation, registry, deployment and monitoring responsibilities | [ ] Planned |
+| 02 | Experiment Tracking with MLflow | Tracking server, experiments, runs, parameters, metrics, artifacts, backend store and artifact store | [ ] Planned |
+| 03 | Dataset and Artifact Versioning | Dataset manifests, DVC concepts, immutable artifacts, model versions, checksums and provenance | [ ] Planned |
+| 04 | Model Registry and Lineage | Registry concepts, model versions/aliases, run lineage, approval state, promotion and rollback | [ ] Planned |
+| 05 | Training and Evaluation Workloads | Containerized training jobs, Kubernetes Jobs, resource requests, artifacts, checkpoints and failure recovery | [ ] Planned |
+| 06 | Workflow Orchestration | Pipeline DAGs, dependencies, retries, caching, parameters and artifact handoff; Kubeflow Pipelines or Argo Workflows where appropriate | [ ] Planned |
+| 07 | CI/CD for Models | Jenkins integration, data validation, tests, training triggers, evaluation gates, artifact publishing and immutable references | [ ] Planned |
+| 08 | GitOps and Model Deployment | ArgoCD, environment promotion, deployment manifests, model version pinning, canary/rollback and release governance | [ ] Planned |
+| 09 | LLM Evaluation and Release Gates | Evaluation datasets, prompt/model regression, quality checks, safety checks, offline evaluation and controlled promotion | [ ] Planned |
+| 10 | MLOps End-to-End Project | Build a pipeline from source/data validation through training, MLflow tracking, registry, approval and Kubernetes deployment | [ ] Planned |
 
-**Practical outcome:** Use a tokenizer and a small open model to inspect token IDs, embeddings/configuration and a basic generation request.
+**Practical outcome:** Build an automated ML delivery pipeline using Docker, Jenkins, MLflow, object storage, Kubernetes and ArgoCD. Understand how the same lifecycle principles extend to LLM applications.
 
-**Infrastructure lens:** Context length, model size, token throughput, memory requirements and why architecture affects serving costs.
+**Infrastructure lens:** Control planes and metadata stores, artifact storage, pipeline workers, reproducible builds, credentials, permissions, auditability, deployment gates and rollback.
 
----
+## Phase 5 — Production LLM Serving and GPU Performance Engineering
 
-# Phase 5 — LLM Model Engineering
+**Goal:** Understand and operate high-performance LLM inference systems. This is the dedicated deep dive into inference internals, serving engines, GPU memory and performance.
 
-**Goal:** Learn how LLMs are packaged, adapted, optimized and evaluated.
-
-| Lesson | Topic | Core coverage | Status |
+| Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | Model Sizes, Configurations and Checkpoints | Parameters (1B/3B/7B/70B), layers, hidden dimensions, model config and checkpoint structure | Planned |
-| 02 | Hugging Face Model Ecosystem | Model repositories, tokenizers, configs, model cards, downloads, caching and gated models | Planned |
-| 03 | Fine-Tuning Fundamentals | Fine-tuning vs prompting, supervised fine-tuning, datasets and evaluation considerations | Planned |
-| 04 | PEFT, LoRA and QLoRA | Adapters, low-rank adaptation, parameter-efficient tuning and resource trade-offs | Planned |
-| 05 | Quantization and Model Formats | FP32, FP16, BF16, INT8, INT4, quantization trade-offs, Safetensors and GGUF | Planned |
-| 06 | Model Evaluation and Packaging | Quality benchmarks, task evaluation, regression testing, artifact versioning and model release practices | Planned |
+| 01 | LLM Inference Request Lifecycle | Request admission, tokenization, scheduling, model execution, generation, streaming and response completion | [ ] Planned |
+| 02 | Prefill and Decode | Prompt processing, autoregressive token generation, compute patterns and why the two stages behave differently | [ ] Planned |
+| 03 | KV Cache and Memory Management | Key/value cache, memory growth with context/concurrency, cache allocation, fragmentation and capacity trade-offs | [ ] Planned |
+| 04 | Inference Performance Metrics | Time to first token (TTFT), inter-token latency, tokens/sec, throughput, concurrency, queue time and tail latency | [ ] Planned |
+| 05 | Batching and Request Scheduling | Static/dynamic/continuous batching, admission control, queueing, fairness and throughput/latency trade-offs | [ ] Planned |
+| 06 | vLLM Architecture and Deployment | vLLM serving architecture, OpenAI-compatible API, streaming, model loading, configuration and Kubernetes deployment | [ ] Planned |
+| 07 | GPU Architecture and CUDA for Serving | GPU compute, VRAM, memory bandwidth, drivers, CUDA runtime, kernel execution and compatibility troubleshooting | [ ] Planned |
+| 08 | Precision and Quantization | FP32, FP16, BF16, INT8, INT4, quantization trade-offs, model formats and quality/performance implications | [ ] Planned |
+| 09 | Multi-GPU Inference | Tensor parallelism, pipeline parallelism concepts, NCCL, GPU topology, communication overhead and placement | [ ] Planned |
+| 10 | Benchmarking and Optimization | Workload design, load testing, profiling, bottleneck analysis, throughput tuning, capacity estimation and cost per token | [ ] Planned |
+| 11 | Serving Engine Trade-offs | vLLM, llama.cpp and NVIDIA Triton; when each is appropriate and what operational differences matter | [ ] Planned |
 
-**Practical outcome:** Download and inspect an open model, understand its configuration and artifacts, run it, and experiment with a supported quantized or adapter-based variant.
+**Practical outcome:** Deploy an open LLM with vLLM, expose its API, generate concurrent traffic, measure TTFT/latency/throughput, inspect GPU memory and tune serving configuration.
 
-**Infrastructure lens:** Artifact size, model storage, download/cache strategy, VRAM estimates and compatibility between model formats and serving engines.
+**Infrastructure lens:** GPU memory capacity, KV cache, batching efficiency, GPU utilization, multi-GPU topology, serving latency, throughput and cost per token.
 
----
+## Phase 6 — Production AI Platform Engineering
 
-# Phase 6 — LLM Inference and Serving
+**Goal:** Operate a secure, observable, reliable, multi-tenant and cost-aware AI platform. Combine AI infrastructure, MLOps and LLMOps into production architecture.
 
-**Goal:** Understand the complete LLM inference request lifecycle and deploy models through production-style serving engines.
-
-| Lesson | Topic | Core coverage | Status |
+| Lesson | Topic | Essential coverage | Status |
 |---|---|---|---|
-| 01 | Training vs Inference | Model loading, inference inputs/outputs, stateless requests and serving lifecycle | Planned |
-| 02 | LLM Inference Internals | Prefill, decode, autoregressive generation, KV cache and memory growth | Planned |
-| 03 | Inference Performance Metrics | Time to first token (TTFT), inter-token latency, tokens/sec, throughput, concurrency and tail latency | Planned |
-| 04 | Batching and Scheduling | Static/dynamic/continuous batching, queueing, admission control and scheduling trade-offs | Planned |
-| 05 | Inference Engines | vLLM, Hugging Face TGI and llama.cpp; when to consider each and their deployment trade-offs | Planned |
-| 06 | Scaling and Parallelism | Tensor/pipeline parallelism, multi-GPU serving, replicas, load balancing and autoscaling concepts | Planned |
-| 07 | Serving APIs and Optimization | OpenAI-compatible APIs, streaming, request limits, caching, quantization impact and performance testing | Planned |
+| 01 | AI Observability | Metrics, logs, traces, OpenTelemetry, Prometheus, Grafana, inference metrics, GPU metrics and correlation IDs | [ ] Planned |
+| 02 | SLOs, Reliability and Resilience | Availability, latency/error SLOs, capacity, high availability, failure recovery, disaster recovery and incident response | [ ] Planned |
+| 03 | Autoscaling and Capacity Engineering | GPU utilization, queue-aware scaling, replica sizing, warm pools, capacity reservations and load forecasting | [ ] Planned |
+| 04 | AI Platform Security | IAM/RBAC, workload identity, secrets, KMS, network isolation, image/artifact provenance, model supply chain and access audit | [ ] Planned |
+| 05 | LLM Application Security | Prompt injection, sensitive-data leakage, unsafe tool execution, guardrail boundaries, input/output validation and sandboxing concepts | [ ] Planned |
+| 06 | Multi-Tenancy and Platform Governance | Tenant isolation, quotas, rate limits, resource fairness, namespaces, policy controls and usage attribution | [ ] Planned |
+| 07 | AI FinOps | GPU cost drivers, utilization, idle capacity, right-sizing, spot/on-demand trade-offs, cost per request/token and chargeback | [ ] Planned |
+| 08 | RAG Infrastructure and Operations | Ingestion pipeline, embeddings, vector database/index, retrieval flow, persistence, backups, access control and retrieval observability | [ ] Planned |
+| 09 | Agent and Tool-Using Workload Operations | Tool execution boundaries, worker queues, state, timeouts, retries, sandboxing, tracing and resource controls | [ ] Planned |
+| 10 | Production AI Platform Capstone | Design and implement a secure, observable, scalable AI platform with model serving, MLOps workflow, GitOps, SLOs and FinOps | [ ] Planned |
 
-**Practical outcome:** Serve an open LLM with an inference engine, expose an API, send concurrent requests and measure latency, throughput and resource utilization.
+**Practical outcome:** Deliver a portfolio-grade AI platform architecture and implementation that brings together model delivery, GPU inference, Kubernetes, observability, security, scaling and cost controls.
 
-**Infrastructure lens:** GPU memory, KV-cache capacity, batching efficiency, GPU utilization, networking, scaling and cost per request/token.
-
----
-
-# Phase 7 — RAG and Vector Databases
-
-**Goal:** Build systems that retrieve relevant external information and provide it to an LLM as grounded context.
-
-| Lesson | Topic | Core coverage | Status |
-|---|---|---|---|
-| 01 | RAG Architecture | Retrieval-augmented generation, ingestion/query flows and when RAG is useful | Planned |
-| 02 | Document Ingestion and Chunking | File parsing, chunk size/overlap, metadata and ingestion pipelines | Planned |
-| 03 | Embeddings and Vector Search | Embedding models, vector dimensions, similarity search and cosine similarity | Planned |
-| 04 | Vector Database Fundamentals | Indexes, collections, metadata filters, persistence and scaling | Planned |
-| 05 | Retrieval Quality | Hybrid search, reranking, top-k, retrieval evaluation and grounding | Planned |
-| 06 | RAG Operations and Evaluation | Data refresh, embedding/model versioning, access control, hallucination analysis and observability | Planned |
-
-**Tools to explore:** FAISS, Chroma, Qdrant, Weaviate and Milvus.
-
-**Practical outcome:** Build a document-question-answering application using ingestion, chunking, embeddings, vector retrieval and LLM generation.
-
-**Infrastructure lens:** Index storage, ingestion throughput, vector-search latency, persistence, backups and multi-tenant isolation.
+**Infrastructure lens:** Production ownership: reliability, security, multi-tenancy, capacity, cost, upgrades, disaster recovery and operational runbooks.
 
 ---
 
-# Phase 8 — AI Application Engineering
+## Portfolio projects
 
-**Goal:** Build reliable applications around model and inference APIs.
+These projects are the practical checkpoints for the journey. We will build them in sequence and reuse components rather than starting from scratch each time.
 
-| Lesson | Topic | Core coverage | Status |
-|---|---|---|---|
-| 01 | Python and API Foundations for AI | Python project structure, virtual environments, dependencies, HTTP and API integration | Planned |
-| 02 | FastAPI Model Services | Request/response schemas, validation, model loading, health/readiness endpoints and API versioning | Planned |
-| 03 | Prompting and Structured Outputs | System/user prompts, prompt templates, JSON/schema-constrained output and prompt testing | Planned |
-| 04 | Tool Calling and Agent Fundamentals | Function/tool calling, tool execution, state, workflows and agent safety boundaries | Planned |
-| 05 | Async, Queues and Streaming | Async I/O, background workers, job queues, streaming responses and backpressure | Planned |
-| 06 | Production Application Concerns | Authentication, rate limits, retries, timeouts, error handling, secrets, logging and cost tracking | Planned |
-
-**Practical outcome:** Build a production-style AI API with streaming, background processing, structured outputs, authentication and observability.
-
-**Infrastructure lens:** Concurrency, queue depth, API reliability, secrets management, network boundaries and application scaling.
-
----
-
-# Phase 9 — AI Infrastructure and GPU Engineering
-
-**Goal:** Understand and operate the compute, storage, networking and accelerator infrastructure required by AI workloads.
-
-| Lesson | Topic | Core coverage | Status |
-|---|---|---|---|
-| 01 | GPU Architecture Fundamentals | GPU vs CPU, compute units, VRAM, memory bandwidth, utilization and GPU workload behavior | Planned |
-| 02 | CUDA and NVIDIA Software Stack | Drivers, CUDA toolkit/runtime, cuDNN concepts, container toolkit and compatibility | Planned |
-| 03 | Cloud GPU Infrastructure | GPU instance families, capacity, quotas, pricing dimensions and GPU provisioning on AWS/GCP | Planned |
-| 04 | Containers for AI Workloads | GPU-enabled containers, images, runtime configuration, model volumes and reproducible environments | Planned |
-| 05 | Kubernetes GPU Scheduling | Device plugins, NVIDIA GPU Operator, resource requests, node labels, taints, tolerations and GPU node pools | Planned |
-| 06 | Multi-GPU and Distributed Infrastructure | NCCL concepts, interconnects, topology, distributed communication and failure domains | Planned |
-| 07 | AI Storage and Networking | Model artifact storage, caching, high-throughput storage, networking and image/model distribution | Planned |
-| 08 | GPU Observability and FinOps | GPU metrics, utilization, memory, saturation, allocation, idle capacity and cost optimization | Planned |
-
-**Practical outcome:** Provision or configure a GPU-enabled environment, deploy a GPU workload and collect useful GPU and application metrics.
-
-**Infrastructure lens:** This phase directly connects AI workloads to cloud architecture, Terraform, containers, Kubernetes, observability and cost management.
-
----
-
-# Phase 10 — MLOps and LLMOps
-
-**Goal:** Automate, version, track, evaluate, deploy and monitor ML and LLM systems throughout their lifecycle.
-
-| Lesson | Topic | Core coverage | Status |
-|---|---|---|---|
-| 01 | MLOps and LLMOps Lifecycle | ML lifecycle, LLMOps differences, workflow orchestration and operational responsibilities | Planned |
-| 02 | Experiment and Dataset Management | Experiment tracking, parameters, metrics, artifacts, dataset versioning and reproducibility | Planned |
-| 03 | Model Registry and Governance | Model versions, stages/aliases, lineage, approvals and release controls | Planned |
-| 04 | ML and LLM Pipelines | Data validation, training/evaluation pipelines, orchestration, retries and pipeline artifacts | Planned |
-| 05 | CI/CD and GitOps for AI | Automated tests, model packaging, deployment promotion, GitOps and rollback | Planned |
-| 06 | Model and LLM Evaluation | Offline/online evaluation, quality regression, safety checks and evaluation datasets | Planned |
-| 07 | Production Monitoring | Data drift, concept drift, model quality, latency, errors, token usage and cost | Planned |
-
-**Tools to explore:** MLflow, Kubeflow, Argo Workflows, ArgoCD, DVC, Prometheus, Grafana and OpenTelemetry.
-
-**Practical outcome:** Build an automated workflow that trains or packages a model, tracks experiments, registers an artifact, deploys it and monitors it.
-
----
-
-# Phase 11 — Production AI on Kubernetes
-
-**Goal:** Design and operate reliable, secure, observable and scalable AI platforms on Kubernetes.
-
-| Lesson | Topic | Core coverage | Status |
-|---|---|---|---|
-| 01 | Kubernetes Patterns for AI Workloads | Online inference vs batch jobs, Deployments, Jobs, Stateful workloads and workload isolation | Planned |
-| 02 | Model Serving Platforms | KServe, Seldon, Ray Serve and serving architecture trade-offs | Planned |
-| 03 | LLM Serving on Kubernetes | Deploy vLLM, GPU scheduling, model loading, service exposure and rollout strategies | Planned |
-| 04 | Autoscaling AI Workloads | HPA, KEDA, custom metrics, queue-aware scaling and GPU-aware scaling limitations | Planned |
-| 05 | Reliability and Performance | Readiness/liveness, graceful shutdown, caching, warm-up, HA, failure recovery and load testing | Planned |
-| 06 | Security and Multi-Tenancy | RBAC, network policies, secrets, isolation, supply-chain security and tenant quotas | Planned |
-| 07 | Observability and FinOps | Metrics, logs, traces, GPU dashboards, SLOs, capacity planning and cost allocation | Planned |
-| 08 | GitOps and Platform Operations | ArgoCD, environment promotion, configuration management, upgrades and operational runbooks | Planned |
-
-**Practical outcome:** Deploy an LLM inference service on Kubernetes with GPU scheduling, autoscaling strategy, monitoring, security controls and GitOps delivery.
-
----
-
-# Phase 12 — Production AI Projects and Architecture
-
-**Goal:** Combine the skills from earlier phases into portfolio-quality systems and architecture exercises.
-
-| Project | Scope | Status |
+| Project | What it demonstrates | Target phase |
 |---|---|---|
-| 01 | End-to-End MLOps Platform — data preparation, training, experiment tracking, model registry, deployment and monitoring | Planned |
-| 02 | GPU Inference Platform — open LLM, GPU scheduling, inference engine, API, load testing and observability | Planned |
-| 03 | Production RAG Application — document ingestion, embeddings, vector database, retrieval, inference and evaluation | Planned |
-| 04 | Multi-Tenant AI Platform — tenant isolation, quotas, model deployment workflows, access controls and usage tracking | Planned |
-| 05 | Distributed Training Infrastructure — multi-GPU or multi-node training, communication, checkpointing and recovery | Planned |
-| 06 | Architecture and Operations Capstone — design review, threat model, SLOs, capacity plan, FinOps analysis and incident runbooks | Planned |
+| 01 — Dockerized ML Inference Service | Pretrained/small model, FastAPI, Docker, model artifact loading and health endpoints | 2 |
+| 02 — Local LLM API | Model/tokenizer loading, generation API, streaming, cache and resource observation | 2 |
+| 03 — Kubernetes Inference Platform | Deployment, Service, storage, configuration, probes, Helm and GitOps basics | 3 |
+| 04 — GPU-Enabled Kubernetes Workload | GPU Operator/device plugin, scheduling, GPU visibility and resource troubleshooting | 3 |
+| 05 — End-to-End MLOps Pipeline | Jenkins, MLflow, versioned artifacts, evaluation gates, registry and ArgoCD deployment | 4 |
+| 06 — Production vLLM Serving | LLM deployment, concurrent load test, TTFT/throughput metrics, GPU memory and tuning | 5 |
+| 07 — Production AI Platform | Observability, security, multi-tenancy, scaling, RAG operations, SLOs and FinOps | 6 |
 
-**External project inspiration:** Use the [Tech5ense — 5 AI Infrastructure Projects to Build in 2026](https://www.tech5ense.com/p/5-ai-infrastructure-projects-to-build-in-2026) article as supplementary inspiration. Project scope should be selected based on what has been learned and the practical value of the implementation.
+## Core technology stack
 
----
+We will learn a focused stack deeply instead of collecting tools without a reason.
 
-## Cross-phase infrastructure skills
+| Area | Primary tools / concepts |
+|---|---|
+| Languages and APIs | Python, FastAPI, HTTP, async processing |
+| Containers | Docker, OCI images, NVIDIA Container Toolkit |
+| Orchestration | Kubernetes, Helm |
+| Cloud and IaC | AWS/GCP, Terraform, IAM, object storage, networking and GPU instances |
+| Model ecosystem | Hugging Face Hub, model/tokenizer/config artifacts, Safetensors, GGUF |
+| Inference | vLLM, llama.cpp; Triton as an alternative architecture |
+| MLOps | MLflow, model registry, dataset/artifact versioning |
+| Pipelines and delivery | Jenkins, Kubernetes Jobs, Argo Workflows/Kubeflow Pipelines where justified, ArgoCD |
+| Observability | Prometheus, Grafana, OpenTelemetry |
+| RAG infrastructure | Embeddings, vector search, Qdrant/FAISS or another selected vector store |
 
-These skills should be revisited in the phases where they become relevant rather than taught as isolated topics only:
+We will introduce other tools only when they solve a concrete problem. KServe, Kueue, Ray Serve, Kubeflow and similar systems are useful technologies to understand, but they are not all mandatory prerequisites.
 
-- **Linux and Python:** environments, packaging, debugging, profiling and automation.
-- **Docker and OCI:** reproducible images, GPU containers, image security and artifact management.
-- **Kubernetes:** scheduling, storage, networking, scaling, workload security and operations.
-- **Terraform and cloud:** provisioning GPU/CPU infrastructure, IAM, networking, storage, quotas and cost controls.
-- **CI/CD and GitOps:** build, test, promotion, deployment, rollback and policy enforcement.
-- **Observability:** metrics, logs, traces, dashboards, alerts and SLOs.
-- **Security:** identity, secrets, access control, artifact provenance, data privacy and supply chain.
-- **FinOps:** utilization, capacity, cost attribution, right-sizing and cost per workload.
+## Cross-cutting engineering topics
 
-## Important learning path notes
+These are revisited in the phase where they matter:
 
-- Phase 1 introduces inference as using a trained model to produce predictions. Phase 6 is the dedicated deep dive into LLM inference and serving: request lifecycle, prefill/decode, KV cache, batching, inference engines, serving APIs, latency, throughput and optimization.
-- Tokenization, embeddings, attention and Transformers are explicitly covered in Phase 4.
-- Deeper neural-network architectures and practical PyTorch work are covered in Phase 3.
-- GPU infrastructure and Kubernetes GPU scheduling are covered in Phase 9; production orchestration and operations are covered in Phase 11.
-- The math depth is intended to be practical and intuitive, not research-level.
-- Lesson titles and sequence beyond the existing Phase 1 lessons are the expanded curriculum plan. Individual lesson documents will be created as each lesson is prepared.
+- **Linux and systems:** processes, memory, filesystems, networking, profiling and debugging.
+- **Python engineering:** packaging, environments, dependency locking, testing and async execution.
+- **Networking:** DNS, TLS, HTTP/gRPC concepts, proxies, load balancing, ingress and service-to-service communication.
+- **Storage:** object storage, PVCs, caching, throughput, persistence, backup and recovery.
+- **Security:** IAM, RBAC, secrets, encryption, network policy, image scanning and artifact provenance.
+- **Reliability:** health checks, graceful shutdown, retries, timeouts, queues, backpressure, SLOs and incident response.
+- **Observability:** metrics, logs, traces, dashboards, alerting and workload-level telemetry.
+- **FinOps:** utilization, capacity, right-sizing, cost attribution and cost per workload.
+- **Infrastructure as Code and GitOps:** Terraform, Jenkins, ArgoCD, immutable artifacts and controlled promotion.
+
+## Explicit scope boundaries
+
+To keep the journey focused on the target role:
+
+**We will cover:** ML lifecycle fundamentals; practical math; model artifacts; tokenization, embeddings and Transformers; inference internals; GPU infrastructure; Kubernetes AI workloads; MLOps/LLMOps automation; evaluation; RAG/agent infrastructure; production observability, security, reliability and FinOps.
+
+**We will not make core prerequisites out of:** research-level statistics, deriving ML algorithms in depth, advanced feature-engineering specialization, developing novel neural-network architectures, training foundation models from scratch at research scale, or building data-science portfolios. We may study specialist topics when they directly affect an infrastructure design decision.
 
 ## Current progress snapshot
 
-- Phase 1 lessons 01–03: reviewed complete.
-- Phase 1 lessons 04–05: taught; practical exercises pending.
-- Phase 1 lesson 06: learner-confirmed complete.
-- Phase 1 lesson 07: learner-confirmed complete; practical and knowledge check reported complete, but answer review is not recorded in this tracker.
-- Phase 1 lesson 08: taught; knowledge check and practical exercise pending review.
-- Phase 1 lessons 09–10: taught; knowledge checks and practical exercises pending.
-- Phase 1 lesson 11: planned.
-- Phases 2–12: roadmap defined; lessons planned.
+- **Phase 1 lessons 01–03:** reviewed complete.
+- **Phase 1 lessons 04–05:** taught; practical work pending.
+- **Phase 1 lesson 06:** learner-confirmed complete.
+- **Phase 1 lesson 07:** learner-confirmed complete; review not recorded.
+- **Phase 1 lesson 08:** taught; knowledge check and practical review pending.
+- **Phase 1 lessons 09–10:** taught; knowledge checks and practical exercises pending.
+- **Phase 1 lesson 11:** taught; knowledge check and practical exercise pending.
+- **Phase 1 lessons 12–19:** planned.
+- **Phases 2–6:** planned.
 
-## Completion rule
+## Rules for continuing the journey
 
-A lesson is not considered **reviewed complete** merely because its content has been read. The learner should complete the knowledge check and practical exercise; answers and practical work should then be reviewed. If the learner reports completion before review, record it as learner-confirmed complete rather than implying that review has occurred.
+1. This six-phase roadmap is the canonical path. Do not create alternate roadmaps or reorder phases casually.
+2. Before starting a lesson, identify its phase, lesson number, prerequisites and practical outcome.
+3. Teach at the depth required for AI Infrastructure / MLOps / LLMOps engineering, using DevOps and production-system analogies.
+4. Do not skip essential concepts just to reach tools quickly. Explain why each concept matters to deployment, operations, performance, security or cost.
+5. Do not turn lessons into data-science or research courses.
+6. Keep lesson numbering stable. If a genuinely necessary topic is discovered, add it to the most relevant phase and explain why; do not silently restructure the journey.
+7. After a lesson, update this file's status only according to the progress definitions above.
+8. When a lesson is marked complete, preserve the knowledge-check result and practical-review outcome where known.
+9. Individual lesson documents may be added as we study them. This file remains the master index and progress tracker.
+10. The next learning activity is to close the outstanding Phase 1 knowledge checks and practical exercises, then continue with the remaining Phase 1 lessons in order.
